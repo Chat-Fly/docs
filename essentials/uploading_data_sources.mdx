@@ -1,0 +1,231 @@
+---
+title: 'Manage Data Sources'
+description: 'In this guide, we will walk through the process of uploading data sources to your chatbot using the ChatFly API.'
+icon: 'code'
+---
+
+## Prerequisites
+
+Before you begin, make sure you have the following:
+
+1. ChatFly account to get access token.
+2. A development environment or tool for making HTTP requests, such as Curl or a programming language like Python.
+
+## Uploading Data Sources
+
+Currently here Uploading Data Source for url.
+
+### API Endpoint
+
+The API endpoint for uploading data sources to your chatbot is: `https://backend.chatfly.co/api/scraping/url`.
+
+### Request Body
+
+To upload a data source, you need to send a POST request to the API endpoint with a JSON request body containing the URL of the data source. Here’s an example request body:
+
+```
+{
+  "bot_id": "xxxx-xxxx-xxxx-xxxx",
+  "scrape_url": "Your url",
+  "scrape_type": 2
+}
+```
+- bot_id (string): ID of your bot.
+
+- scrape_url (string): Link the website url where you want to scrape information.
+
+- scrape_type (int): The method by which you import the data source.
+
+### Example Request
+
+Here’re example command sto uploading data sources using the ChatFly API:
+
+<Warning>
+
+Replace `token` with your token access.
+
+</Warning>
+
+<CodeGroup>
+
+```json curl
+curl -X POST "https://backend.chatfly.co/api/bot/information" \
+-H "Authorization: Bearer token" \
+-H "Content-Type: application/json" \
+-d '{
+  "bot_id": "xxxx-xxxx-xxxx-xxxx",
+  "scrape_url": "https://xxxx",
+  "scrape_type": 2
+}'
+
+
+```
+
+```json python
+import requests
+
+url = 'https://backend.chatfly.co/api/bot/information'
+headers = {
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer token'
+}
+
+data = {
+  "bot_id": "xxxx-xxxx-xxxx-xxxx",
+  "scrape_url": "https://xxxx",
+  "scrape_type": 2
+}
+
+response = requests.post(url, headers=headers, json=data)
+
+if response.status_code == 200:
+    print("Request successful!")
+    print(response.json())
+else:
+    print("Request failed with status code:", response.status_code)
+    print(response.text)
+```
+
+```json javascript
+const axios = require('axios');
+
+const url = 'https://backend.chatfly.co/api/bot/information';
+const headers = {
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer token'
+};
+
+const data = {
+    bot_id: 'xxxx-xxxx-xxxx-xxxx',
+    scrape_url: 'https://xxxx',
+    scrape_type: 2
+};
+
+axios.post(url, data, { headers })
+    .then(response => {
+        if (response.status === 200) {
+            console.log('Request successful!');
+            console.log(response.data);
+        } else {
+            console.log('Request failed with status code:', response.status);
+            console.log(response.data);
+        }
+    })
+    .catch(error => {
+        console.error('An error occurred:', error);
+    });
+
+```
+
+</CodeGroup>
+
+
+## Get Data Sources
+
+Currently here get list url.
+
+### API Endpoint
+
+The API endpoint for get list url to your chatbot is: `https://backend.chatfly.co/api/scraping/url/{bot_id}`.
+
+<Warning>
+
+Make sure to replace `{bot_id}` with the UUID of your bot..
+
+</Warning>
+
+### Request Body
+
+To get list url, you need to send a Get request to the API endpoint with a params request. Here’s an example params request:
+
+```
+{
+  "bot_id": "xxxx-xxxx-xxxx-xxxx",
+}
+```
+- bot_id (string): ID of your bot.
+
+### Example Request
+
+Here’re example command sto get list url using the ChatFly API:
+
+<Warning>
+
+Replace `token` with your token access.
+
+</Warning>
+
+<CodeGroup>
+
+```json curl
+curl -X Get "https://backend.chatfly.co/api/scraping/url/xxxx-xxxx-xxxx-xxxx" \
+-H "Authorization: Bearer token" \
+-H "Content-Type: application/json" \
+
+```
+
+```json python
+import requests
+
+url = 'https://backend.chatfly.co/api/scraping/url/{xxxx-xxxx-xxxx-xxxx}'
+headers = {
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer token'
+}
+
+response = requests.get(url, headers=headers)
+
+if response.status_code == 200:
+    print("Request successful!")
+    print(response.json())
+else:
+    print("Request failed with status code:", response.status_code)
+    print(response.text)
+```
+
+```json javascript
+const axios = require('axios');
+
+const url = 'https://backend.chatfly.co/api/scraping/url/xxxx-xxxx-xxxx-xxxx';
+const headers = {
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer token'
+};
+
+axios.get(url, { headers })
+    .then(response => {
+        if (response.status === 200) {
+            console.log("Request successful!");
+            console.log(response.data);
+        } else {
+            console.log("Request failed with status code:", response.status);
+            console.log(response.data);
+        }
+    })
+    .catch(error => {
+        console.error("An error occurred:", error);
+    });
+
+```
+
+</CodeGroup>
+
+### Response Body
+
+The list url are responded:
+
+```
+[
+  {
+    "knowledge_base_id": "xxxx-xxxx-xxxx-xxxx",
+    "url": "Your url",
+    "num_token": 0
+  },
+  ...
+]
+```
+- knowledge_base_id (string): ID of knowledge base.
+
+- url (string): your website url.
+
+- num_token (int): number of words.
