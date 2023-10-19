@@ -1,0 +1,170 @@
+---
+title: 'Manage Streaming Response'
+description: 'In this guide, we will walk through the process of getting streaming response from ChatFly API.'
+icon: 'code'
+---
+
+
+## Prerequisites
+
+Before you begin, make sure you have the following:
+
+1. ChatFly account to get access token.
+2. A development environment or tool for making HTTP requests, such as Curl or a programming language like Python.
+
+
+## Get Streaming Response from ChatFly API
+
+### API Endpoint
+
+The API endpoint for get streaming response:
+```
+https://backend.chatfly.co/api/chat/get-streaming-response
+```
+
+### Request Body
+
+To get streaming response, you need to send a Post request to the API endpoint with a JSON request. Here’s an example JSON request:
+```
+{
+  "bot_id": "xxxx-xxxx-xxxx-xxxx",
+  "message": "string",
+  "session_id": "xxxx-xxxx-xxxx-xxxx",
+  "user_id": "xxxx-xxxx-xxxx-xxxx",
+  "sender": "xxxx-xxxx-xxxx-xxxx"
+}
+```
+- bot_id (string): id of your bot.
+- message (string): message from user.
+- session_id (string): id of session.
+- user_id (string, optional): id of user.
+- sender (string, optional): id of sender.
+
+### Example Request
+
+Here’re example command to get streaming response using the ChatFly API:
+
+<CodeGroup>
+
+```json curl
+curl -X POST "https://backend.chatfly.co/api/chat/get-streaming-response" \
+-H 'accept: application/json' \
+-H 'Content-Type: application/json' \
+-d '{
+  "bot_id": "xxxx-xxxx-xxxx-xxxx",
+  "message": "string",
+  "session_id": "xxxx-xxxx-xxxx-xxxx",
+  "user_id": "xxxx-xxxx-xxxx-xxxx",
+  "sender": "xxxx-xxxx-xxxx-xxxx"
+}' --no-buffer
+```
+
+```json python
+import requests
+
+url = "https://backend.dev.chatfly.co/api/chat/get-streaming-response"
+headers = {
+    'Content-Type': 'application/json',
+}
+
+data = {
+  "bot_id": "xxxx-xxxx-xxxx-xxxx",
+  "message": "string",
+  "session_id": "xxxx-xxxx-xxxx-xxxx",
+  "user_id": "xxxx-xxxx-xxxx-xxxx",
+  "sender": "xxxx-xxxx-xxxx-xxxx"
+}
+
+response = requests.post(url, headers=headers, json=data, stream=True)
+
+if response.status_code == 200:
+    print("Request successful!")
+
+    # Process the streaming response as needed
+    for chunk in response.iter_content(chunk_size=1024):
+        if chunk:
+            # Process each chunk of the streaming response
+            print(chunk.decode('utf-8'), end="", flush=True)
+else:
+    print("Request failed with status code:", response.status_code)
+    print(response.text)
+
+```
+
+```json javascript
+const url = "https://backend.chatfly.co/api/chat/get-streaming-response";
+const headers = {
+    "Content-Type": "application/json"
+};
+
+const data = {
+    bot_id: "xxxx-xxxx-xxxx-xxxx",
+    message: "string",
+    session_id: "xxxx-xxxx-xxxx-xxxx",
+    user_id: "xxxx-xxxx-xxxx-xxxx",
+    sender: "xxxx-xxxx-xxxx-xxxx"
+};
+
+const decoder = new TextDecoder('utf-8');
+
+fetch(url, {
+    method: 'POST',
+    headers: headers,
+    body: JSON.stringify(data),
+})
+    .then(response => {
+        // check for error response
+        if (!response.ok) {
+            return response.text().then(errorText => {
+                throw new Error(`Request failed with status code:: ${response.status} - ${errorText}`);
+        });
+        }
+
+        console.log("Request successful!");
+
+        // Otherwise, return the streaming response body
+        return response.body;
+    })
+    .then(stream => {
+        // Create a reader to read the stream
+        const reader = stream.getReader();
+
+        // Define the function that will handle the stream
+        function read() {
+        reader.read().then(({ done, value }) => {
+            // Check to see if we're done with the stream
+            if (done) {
+                return;
+            }
+
+            // Convert the value (a Uint8Array) to a string
+            const text = decoder.decode(value);
+
+            process.stdout.write(text);
+
+            // Read some more, and call this function again
+            read();
+        });
+        }
+
+        // Start reading the stream
+        read();
+    })
+    .catch(error => {
+        console.error(`An error occurred: ${error}`);
+    });
+```
+
+</CodeGroup>
+
+
+### Response Body
+
+Streaming response is responsed:
+
+
+```
+string
+```
+
+- string (string): string of response.

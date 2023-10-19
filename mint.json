@@ -67,7 +67,8 @@
                 "essentials/settings",
                 "essentials/navigation",
                 "essentials/create_chatbot",
-                "essentials/uploading_data_sources"
+                "essentials/uploading_data_sources",
+                "essentials/get_streaming_response"
             ]
         },
         {
