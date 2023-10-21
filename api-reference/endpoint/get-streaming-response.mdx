@@ -1,0 +1,50 @@
+---
+title: "Get Streaming Response"
+api: "POST https://backend.chatfly.co/api/chat/get-streaming-response"
+description: "This endpoint get streaming response"
+---
+
+### Body
+
+<ParamField body="bot_id" type="string">
+  This is the ID of the bot you want to get the streaming response.
+</ParamField>
+
+<ParamField body="message" type="string">
+  This is the message you want to send to the bot.
+</ParamField>
+
+<ParamField body="session_id" type="string">
+  This is the ID of the session you want to get the streaming response.
+</ParamField>
+
+### Response
+
+<ResponseField name="string" type="string">
+  Streaming response from the bot.
+</ResponseField>
+
+<RequestExample>
+
+```bash Example Request
+curl -N -X POST "https://backend.chatfly.co/api/chat/get-streaming-response" \
+-H 'accept: application/json' \
+-H 'Content-Type: application/json' \
+-d '{
+  "bot_id": "xxxx-xxxx-xxxx-xxxx",
+  "message": "string",
+  "session_id": "xxxx-xxxx-xxxx-xxxx"
+}'
+```
+
+</RequestExample>
+
+<ResponseExample>
+
+```string Response
+string
+```
+
+</ResponseExample>
+
+
