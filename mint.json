@@ -28,7 +28,7 @@
         }
     ],
     "topbarCtaButton": {
-        "name": "Admin",
+        "name": "Admin Page",
         "url": "https://app.chatfly.co"
     },
     "tabs": [
@@ -65,16 +65,26 @@
                 "essentials/code",
                 "essentials/images",
                 "essentials/settings",
-                "essentials/navigation",
-                "essentials/create_chatbot",
-                "essentials/uploading_data_sources",
-                "essentials/get_streaming_response"
+                "essentials/navigation"
             ]
         },
         {
             "group": "API Documentation",
             "pages": [
-                "api-reference/authentication"
+                "api-reference/documents/authentication",
+                {
+                    "group": "Bot Setting",
+                    "pages": [
+                        "api-reference/documents/bot-manage/create-bot",
+                        "api-reference/documents/bot-manage/bot-information"
+                    ]
+                },
+                {
+                    "group": "Bot Implement",
+                    "pages": [
+                        "api-reference/documents/bot-implement/get-streaming-response"
+                    ]
+                }
             ]
         },
         {
