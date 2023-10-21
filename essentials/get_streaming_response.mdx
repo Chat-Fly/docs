@@ -47,16 +47,14 @@ Here’re example command to get streaming response using the ChatFly API:
 <CodeGroup>
 
 ```json curl
-curl -X POST "https://backend.chatfly.co/api/chat/get-streaming-response" \
+curl -N -X POST "https://backend.chatfly.co/api/chat/get-streaming-response" \
 -H 'accept: application/json' \
 -H 'Content-Type: application/json' \
 -d '{
   "bot_id": "xxxx-xxxx-xxxx-xxxx",
   "message": "string",
-  "session_id": "xxxx-xxxx-xxxx-xxxx",
-  "user_id": "xxxx-xxxx-xxxx-xxxx",
-  "sender": "xxxx-xxxx-xxxx-xxxx"
-}' --no-buffer
+  "session_id": "xxxx-xxxx-xxxx-xxxx"
+}'
 ```
 
 ```json python
@@ -70,9 +68,7 @@ headers = {
 data = {
   "bot_id": "xxxx-xxxx-xxxx-xxxx",
   "message": "string",
-  "session_id": "xxxx-xxxx-xxxx-xxxx",
-  "user_id": "xxxx-xxxx-xxxx-xxxx",
-  "sender": "xxxx-xxxx-xxxx-xxxx"
+  "session_id": "xxxx-xxxx-xxxx-xxxx"
 }
 
 response = requests.post(url, headers=headers, json=data, stream=True)
@@ -85,6 +81,7 @@ if response.status_code == 200:
         if chunk:
             # Process each chunk of the streaming response
             print(chunk.decode('utf-8'), end="", flush=True)
+    print("\nStream complete")
 else:
     print("Request failed with status code:", response.status_code)
     print(response.text)
@@ -100,9 +97,7 @@ const headers = {
 const data = {
     bot_id: "xxxx-xxxx-xxxx-xxxx",
     message: "string",
-    session_id: "xxxx-xxxx-xxxx-xxxx",
-    user_id: "xxxx-xxxx-xxxx-xxxx",
-    sender: "xxxx-xxxx-xxxx-xxxx"
+    session_id: "xxxx-xxxx-xxxx-xxxx"
 };
 
 const decoder = new TextDecoder('utf-8');
@@ -134,7 +129,7 @@ fetch(url, {
         reader.read().then(({ done, value }) => {
             // Check to see if we're done with the stream
             if (done) {
-                return;
+                return console.log("\nStream complete");
             }
 
             // Convert the value (a Uint8Array) to a string
@@ -168,3 +163,8 @@ string
 ```
 
 - string (string): string of response.
+
+Result with python, equivalent to javascript and curl:
+
+
+![streaming-response](./images/streaming_response.gif)
