@@ -49,7 +49,7 @@ Replace `token` with your token access.
 <CodeGroup>
 
 ```json curl
-curl -X POST "https://backend.chatfly.co/api/bot/information" \
+curl -X POST "https://backend.chatfly.co/api/scraping/url" \
 -H "Authorization: Bearer token" \
 -H "Content-Type: application/json" \
 -d '{
@@ -64,7 +64,7 @@ curl -X POST "https://backend.chatfly.co/api/bot/information" \
 ```json python
 import requests
 
-url = 'https://backend.chatfly.co/api/bot/information'
+url = 'https://backend.chatfly.co/api/scraping/url'
 headers = {
     'Content-Type': 'application/json',
     'Authorization': 'Bearer token'
@@ -89,7 +89,7 @@ else:
 ```json javascript
 const axios = require('axios');
 
-const url = 'https://backend.chatfly.co/api/bot/information';
+const url = 'https://backend.chatfly.co/api/scraping/url';
 const headers = {
     'Content-Type': 'application/json',
     'Authorization': 'Bearer token'
