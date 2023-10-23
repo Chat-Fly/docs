@@ -1,14 +1,14 @@
 ---
-title: 'Streaming Response'
+title: 'Get Streaming Response With Chat History'
 description: 'In this guide, we will walk through the process of obtaining a streaming response from the ChatFly API.'
-icon: 'message-captions'
+icon: 'messages'
 ---
 
 ### API Endpoint
 
 The API endpoint for obtaining a streaming response is:
 ```
-https://backend.chatfly.co/api/chat/get-streaming-response
+https://backend.chatfly.co/api/chat/get-streaming-response-with-chat-history
 ```
 
 
@@ -20,12 +20,12 @@ To get a streaming response, you need to send a POST request to the API endpoint
 {
   "bot_id": "xxxx-xxxx-xxxx-xxxx",
   "message": "string",
-  "session_id": "xxxx-xxxx-xxxx-xxxx"
+  "chat_history": []
 }
 ```
 - bot_id (string): ID of your bot.
 - message (string): Message from the user.
-- session_id (string): ID of the session.
+- chat_history (list): List of the chat history with `sender_type` and `content`.
 
 ### Example Request
 
@@ -40,7 +40,10 @@ curl -N -X POST "https://backend.chatfly.co/api/chat/get-streaming-response" \
 -d '{
   "bot_id": "xxxx-xxxx-xxxx-xxxx",
   "message": "string",
-  "session_id": "xxxx-xxxx-xxxx-xxxx"
+  "chat_history": [
+       {"sender_type": "user", "content":"What is ChatFly?"},
+       {"sender_type": "agent", "content":"ChatFly is an AI chatbot builder"}
+    ]
 }'
 ```
 
@@ -55,7 +58,10 @@ headers = {
 data = {
   "bot_id": "xxxx-xxxx-xxxx-xxxx",
   "message": "string",
-  "session_id": "xxxx-xxxx-xxxx-xxxx",
+  "chat_history": [
+       {"sender_type": "user", "content":"What is ChatFly?"},
+       {"sender_type": "agent", "content":"ChatFly is an AI chatbot builder"},
+    ],
 }
 
 response = requests.post(url, headers=headers, json=data, stream=True)
@@ -83,9 +89,10 @@ const headers = {
 const data = {
     bot_id: "xxxx-xxxx-xxxx-xxxx",
     message: "string",
-    session_id: "xxxx-xxxx-xxxx-xxxx",
-    user_id: "xxxx-xxxx-xxxx-xxxx",
-    sender: "xxxx-xxxx-xxxx-xxxx"
+    chat_history: [
+        { sender_type: "user", content: "What is ChatFly?" },
+        { sender_type: "agent", content: "ChatFly is an AI chatbot builder" }
+    ]
 };
 
 const decoder = new TextDecoder('utf-8');

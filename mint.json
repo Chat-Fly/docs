@@ -82,7 +82,8 @@
                 {
                     "group": "Bot Implement",
                     "pages": [
-                        "api-reference/documents/bot-implement/get-streaming-response"
+                        "api-reference/documents/bot-implement/get-streaming-response",
+                        "api-reference/documents/bot-implement/get-streaming-response-with-chat-history"
                     ]
                 }
             ]
