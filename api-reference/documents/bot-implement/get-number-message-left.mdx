@@ -1,0 +1,115 @@
+---
+title: 'Get Number Messages Left'
+description: 'In this guide,  this tutorial, we will walk through the process of getting the remaining number of messages from the ChatFly API.'
+icon: 'message'
+---
+
+### API Endpoint
+
+The API endpoint for get number message left is:
+```
+https://backend.chatfly.co/api/chat/num-message-left/{bot_id}
+```
+<Warning>
+Make sure to replace `{bot_id}` with the UUID of your bot..
+</Warning>
+
+### Request Body
+
+To get number message left, you need to send a GET request to the API endpoint with a Parameter request. Here's an example JSON request:
+```
+{
+  "bot_id": "xxxx-xxxx-xxxx-xxxx",
+}
+```
+- bot_id (string): id of your bot.
+
+
+### Example Request
+Here’re example command sto get bot number message left using the ChatFly API:
+
+<Warning>
+
+Replace `token` with your token access.
+
+</Warning>
+
+<CodeGroup>
+
+```json curl
+curl --location 'https://backend.chatfly.co/api/chat/num-message-left?bot_id=xxxx-xxxx-xxxx-xxxx' \
+--header 'Content-Type: application/json' \
+--header 'Bearer: token'
+
+```
+
+```json python
+import requests
+
+url = 'https://backend.chatfly.co/api/chat/num-message-left'
+headers = {
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer token'
+}
+
+data = {
+   "bot_id": "xxxx-xxxx-xxxx-xxxx"
+}
+
+response = requests.get(url, headers=headers, params=data)
+
+if response.status_code == 200:
+    print("Request successful!")
+    print(response.json())
+else:
+    print("Request failed with status code:", response.status_code)
+    print(response.text)
+```
+
+```json javascript
+const url = 'https://backend.chatfly.co/api/chat/num-message-left';
+const headers = {
+  'Content-Type': 'application/json',
+  'Authorization': 'Bearer token'
+};
+
+const data = {
+  bot_id: 'xxxx-xxxx-xxxx-xxxx'
+};
+
+const params = new URLSearchParams(data);
+
+fetch(`${url}?${params}`, {
+  method: 'GET',
+  headers: headers
+})
+  .then(response => {
+    if (response.ok) {
+      console.log('Request successful!');
+      return response.json();
+    } else {
+      console.log('Request failed with status code:', response.status);
+      throw new Error(response.statusText);
+    }
+  })
+  .then(data => {
+    console.log(data);
+  })
+  .catch(error => {
+    console.error(error);
+  });
+```
+
+</CodeGroup>
+
+
+### Response Body
+
+The number message left of Bot is responded:
+
+```
+{
+  "bot_id": "xxxx-xxxx-xxxx-xxxx",
+  "num_message_left": 99
+}
+```

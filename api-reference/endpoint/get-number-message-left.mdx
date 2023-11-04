@@ -1,0 +1,44 @@
+---
+title: "Get Number Messages Left"
+api: "GET https://backend.chatfly.co/api/chat/num-message-left"
+description: "This endpoint get number messages left of a bot"
+---
+
+### Body
+
+<ParamField body="bot_id" type="string">
+  This is the ID of the bot you want to get the number message left.
+</ParamField>
+
+### Response
+
+<ResponseField name="string" type="json">
+```json
+{
+  "bot_id": "xxxx-xxxx-xxxx-xxxx",
+  "num_message_left": 99
+}
+```
+</ResponseField>
+
+<RequestExample>
+```bash Example Request
+curl -N -X POST "https://backend.chatfly.co/api/chat/num-message-left" \
+-H 'Content-Type: application/json' \
+-H 'Authorization: Bearer token' \
+-d '{
+  "bot_id": "xxxx-xxxx-xxxx-xxxx",
+}'
+```
+</RequestExample>
+
+<ResponseExample>
+
+```json Response
+{
+  "bot_id": "xxxx-xxxx-xxxx-xxxx",
+  "num_message_left": 99
+}
+```
+
+</ResponseExample>

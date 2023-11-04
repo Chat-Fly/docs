@@ -1,0 +1,169 @@
+---
+title: "Streaming Response With Custom Settings"
+description: "In this guide, we will walk through the process of obtaining a streaming response from the ChatFly API with the custom your settings."
+icon: "message"
+---
+
+### API Endpoint
+
+The API endpoint for obtaining a streaming response with custom setting is:
+```
+https://backend.chatfly.co/api/chat/get-streaming-response-with-custom-settings
+```
+To get a streaming response, you need to send a POST request to the API endpoint with a Params and JSON request. 
+Here's an example Params request:
+```params
+{
+    "type_qa": "String"
+}
+```
+- type_qa (string): type of question message.
+
+And here's an example JSON request:
+
+```json
+{
+  "bot_id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+  "message": "Hi",
+  "chat_history": [
+      {
+        "sender_type": "user",
+        "content": "Hi"
+      },
+      {
+        "sender_type": "assistant",
+        "content": "Hello! How can I assist you today?"
+      }],
+  "custom_prompt": "I want you to act as an assistant to a customer support agent by writing email responses...",
+  "gpt_model_name": "gpt-3.5-turbo-16k",
+  "temperature": 0,
+  "rules": []
+}
+```
+
+### Example Request
+Here are example commands to obtain a streaming response with custom settings using the ChatFly API:
+
+<CodeGroup>
+
+```json curl
+curl -X 'POST' \
+  'https://backend.chatfly.co/api/chat/get-streaming-response-with-custom-settings' \
+  -H 'accept: application/json' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "type_qa": "string",
+  "bot_id": "xxxx-xxxx-xxxx-xxxx",
+  "message": "Hi",
+  "chat_history": [
+      {
+        "sender_type": "user",
+        "content": "Hi"
+      },
+      {
+        "sender_type": "assistant",
+        "content": "Hello! How can I assist you today?"
+      }],
+  "custom_prompt": "I want you to act as an assistant to a customer support agent by writing email responses...",
+  "gpt_model_name": "gpt-3.5-turbo-16k",
+  "temperature": 0,
+  "rules": []
+}'
+```
+
+```json python
+import requests
+
+url = 'https://backend.chatfly.co/api/chat/get-streaming-response-with-custom-settings'
+headers = {
+    'accept': 'application/json',
+    'Content-Type': 'application/json'
+}
+params = {
+    'type_qa': 'string',
+}
+    
+data = {
+    'bot_id': 'xxxx-xxxx-xxxx-xxxx',
+    'message': 'Hi',
+    'chat_history': [
+      {
+        "sender_type": "user",
+        "content": "Hi"
+      },
+      {
+        "sender_type": "assistant",
+        "content": "Hello! How can I assist you today?"
+      }],
+    'custom_prompt': 'I want you to act as an assistant to a customer support agent by writing email responses...',
+    'gpt_model_name': 'gpt-3.5-turbo-16k',
+    'temperature': 0,
+    'rules': []
+}
+
+response = requests.post(url, json=data, headers=headers, params=params, stream=True)
+
+if response.status_code == 200:
+    print("Request successful!")
+
+    # Process the streaming response as needed
+    for chunk in response.iter_content(chunk_size=1024):
+        if chunk:
+            # Process each chunk of the streaming response
+            print(chunk.decode('utf-8'), end="", flush=True)
+else:
+    print("Request failed with status code:", response.status_code)
+    print(response.text)
+```
+
+```json javascript
+const axios = require('axios');
+
+const url = 'https://backend.chatfly.co/api/chat/get-streaming-response-with-custom-settings';
+const headers = {
+  'accept': 'application/json',
+  'Content-Type': 'application/json'
+};
+const data = {
+  'type_qa': 'string',
+  'bot_id': 'xxxx-xxxx-xxxx-xxxx',
+  'message': 'Hi',
+  'chat_history': [
+      {
+        "sender_type": "user",
+        "content": "Hi"
+      },
+      {
+        "sender_type": "assistant",
+        "content": "Hello! How can I assist you today?"
+      }],
+  'custom_prompt': 'I want you to act as an assistant to a customer support agent by writing email responses...',
+  'gpt_model_name': 'gpt-3.5-turbo-16k',
+  'temperature': 0,
+  'rules': []
+};
+
+axios.post(url, data, { headers })
+  .then(response => {
+    console.log('Response Status Code:', response.status);
+    console.log('Response Content:', response.data);
+  })
+  .catch(error => {
+    console.error('Error:', error);
+  });
+```
+
+</CodeGroup>
+
+### Response Body
+
+The streaming response is as follows:
+```
+*Answer:* Hello! How can I assist you today? 
+
+*Suggest Questions:*
+1. What specific information are you looking for?
+2. Is there a particular department or service you need assistance with?
+3. Can you provide more details about your inquiry or issue?
+4. How can I help make your experience better?
+```
