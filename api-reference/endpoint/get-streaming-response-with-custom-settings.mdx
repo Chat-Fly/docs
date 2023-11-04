@@ -1,0 +1,80 @@
+---
+title: "Get Streaming Response With Custom Settings"
+api: "POST https://backend.chatfly.co/api/chat/get-streaming-response-with-custom-settings"
+description: "This endpoint get streaming response"
+---
+
+### Body
+
+<ParamField body="type_qa" type="string">
+  This is the type q&a for the bot you want to get the streaming response.
+</ParamField>
+
+<ParamField body="bot_id" type="string">
+  This is the ID of the bot you want to get the streaming response.
+</ParamField>
+
+<ParamField body="message" type="string">
+  This is the message you want send to bot.
+</ParamField>
+
+<ParamField body="custom_prompt" type="string">
+  This is the custom prompt you want setting for bot.
+</ParamField>
+
+<ParamField body="gpt_model_name" type="string">
+  This is the GPT Model you want setting for bot.
+</ParamField>
+
+<ParamField body="temperature" type="string">
+  This is the temperature custom setting for bot.
+</ParamField>
+
+
+### Response
+<ResponseField name="Streaming response" type="string">
+  Streaming response from the bot with your custom settings.
+</ResponseField>
+
+
+<RequestExample>
+
+```bash Example Request
+curl -X 'POST' \
+  'https://backend.chatfly.co/api/chat/get-streaming-response-with-custom-settings' \
+  -H 'accept: application/json' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "type_qa": "string",
+  "bot_id": "xxxx-xxxx-xxxx-xxxx",
+  "message": "Hi",
+  "chat_history": [
+      {
+        "sender_type": "user",
+        "content": "Hi"
+      },
+      {
+        "sender_type": "assistant",
+        "content": "Hello! How can I assist you today?"
+      }],
+  "custom_prompt": "I want you to act as an assistant to a customer support agent by writing email responses...",
+  "gpt_model_name": "gpt-3.5-turbo-16k",
+  "temperature": 0,
+  "rules": []
+}'
+```
+
+</RequestExample>
+
+<ResponseExample>
+
+```string Response
+*Answer:* Hello! How can I assist you today? 
+
+*Suggest Questions:*
+1. What specific information are you looking for?
+2. Is there a particular department or service you need assistance with?
+3. Can you provide more details about your inquiry or issue?
+4. How can I help make your experience better?
+```
+</ResponseExample>

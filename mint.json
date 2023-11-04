@@ -83,7 +83,10 @@
                     "group": "Bot Implement",
                     "pages": [
                         "api-reference/documents/bot-implement/get-streaming-response",
-                        "api-reference/documents/bot-implement/get-streaming-response-with-chat-history"
+                        "api-reference/documents/bot-implement/get-streaming-response-with-chat-history",
+                        "api-reference/documents/bot-implement/get-streaming-response-with-custom-settings",
+                        "api-reference/documents/bot-implement/get-conversation-history",
+                        "api-reference/documents/bot-implement/get-number-message-left"   
                     ]
                 }
             ]
@@ -95,7 +98,10 @@
                 "api-reference/endpoint/create",
                 "api-reference/endpoint/update",
                 "api-reference/endpoint/delete",
-                "api-reference/endpoint/get-streaming-response"
+                "api-reference/endpoint/get-conversation-history",
+                "api-reference/endpoint/get-streaming-response",
+                "api-reference/endpoint/get-streaming-response-with-custom-settings",
+                "api-reference/endpoint/get-number-message-left"
             ]
         }
     ],

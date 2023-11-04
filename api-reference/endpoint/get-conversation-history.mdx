@@ -1,0 +1,74 @@
+---
+title: "Get Conversation History"
+api: "GET https://backend.chatfly.co/api/chat/history"
+description: "This endpoint get conversation history"
+---
+
+### Body
+<ParamField body="bot_id" type="string">
+  This is the ID of the bot you want to get the conversation history.
+</ParamField>
+
+<ParamField body="date_from" type="datetime">
+  This is thetart date you want get conversation history.
+</ParamField>
+
+<ParamField body="date_to" type="datetime">
+  This is the end date you want get conversation history.
+</ParamField>
+
+<ParamField body="order" type="string">
+  This is the conversation sort option you want.
+</ParamField>
+
+
+### Response
+<ResponseField name="JSON Response" type="string">
+  Conversation information.
+</ResponseField>
+
+<RequestExample>
+
+```bash Example Request
+curl -X POST "https://backend.chatfly.co/api/chat/history" \
+-H "Authorization: Bearer token" \
+-H "Content-Type: application/json" \
+-d '{
+  "bot_id": "xxxx-xxxx-xxxx-xxxx",
+  "date_from": "2023-01-01T00:00:00",
+  "date_to": "2030-12-31T00:00:00",
+  "order": "created_at.desc"
+}'
+```
+
+</RequestExample>
+
+<ResponseExample>
+
+```json Response
+[
+  {
+    "bot_name": "Chatfly",
+    "bot_id": "3f1dfb85-177c-4690-a24a-5eef24410601",
+    "user_id": "868af88e-9b14-4f55-8124-8e9903a90048",
+    "session_id": "f1576597-e64e-6096-c875-631fd1ceb1f2",
+    "created_at": "2023-11-04T06:38:26.901921Z",
+    "chat_history_response": [
+      {
+        "sender_type": "user",
+        "content": "Hi"
+      },
+      {
+        "sender_type": "assistant",
+        "content": "Hello! How can I assist you today?"
+      },
+      {...
+      },
+      {...
+      }
+    ]
+  }
+]
+```
+
+</ResponseExample>
