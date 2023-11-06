@@ -1,0 +1,48 @@
+---
+title: "Import file"
+description: "In this guide, we will walk through the process of importing file."
+icon: "message-captions"
+---
+
+### API Endpoint
+
+The API endpoint for obtaining a streaming response is:
+
+```
+https://backend.chatfly.co/api/scraping/file
+```
+
+### Request Body
+
+To import a file, you need to send a POST request to the API endpoint with a JSON request. Here's an example JSON request:
+
+```json
+{
+  "bot_id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+  "file": (binary)
+}
+```
+
+- bot_id (string): ID of your bot.
+- file (binary): Uploaded file.
+
+### Example Request
+
+<a href="/api-reference/endpoint/scraping/upload-file">Here</a> are example commands
+to import file using the ChatFly API
+
+### Response Body
+
+The response is as follows:
+
+```
+{
+    "filename": file_name.pdf,
+    "num_token": 2669,
+    "s3_location_file": path-to-s3-location
+  }
+```
+
+- filename (string): File name.
+- progress (float): Current progress (from 0 to 1)
+- num_token (int): Number token of current page
