@@ -695,7 +695,8 @@
                             "type": "string",
                             "format": "uuid",
                             "title": "Bot Id"
-                        }
+                        },
+                        "description": "This is the ID of the bot you want to get number message left."
                     }
                 ],
                 "responses": {
@@ -705,16 +706,6 @@
                             "application/json": {
                                 "schema": {
                                     "$ref": "#/components/schemas/NumMessageLeftResponse"
-                                }
-                            }
-                        }
-                    },
-                    "422": {
-                        "description": "Validation Error",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/HTTPValidationError"
                                 }
                             }
                         }
@@ -2902,11 +2893,13 @@
                     "bot_id": {
                         "type": "string",
                         "format": "uuid",
-                        "title": "Bot Id"
+                        "title": "Bot Id",
+                        "description": "Bot Id get number message left."
                     },
                     "num_message_left": {
                         "type": "integer",
-                        "title": "Num Message Left"
+                        "title": "Num Message Left",
+                        "description": "The Num Message Left of the Bot."
                     }
                 },
                 "type": "object",
