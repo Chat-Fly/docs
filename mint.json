@@ -1,7 +1,9 @@
 {
-    "openapi": "https://backend.chatfly.co/openapi.json",
+    "openapi": [
+        "api-reference/openapi.json"
+    ],
     "api": {
-        "baseUrl": "https://backend.chatfly.co/"
+        "baseUrl": "https://backend.chatfly.co"
     },
     "name": "ChatFly Documentation",
     "logo": {
@@ -86,7 +88,7 @@
                         "api-reference/documents/bot-implement/get-streaming-response-with-chat-history",
                         "api-reference/documents/bot-implement/get-streaming-response-with-custom-settings",
                         "api-reference/documents/bot-implement/get-conversation-history",
-                        "api-reference/documents/bot-implement/get-number-message-left"   
+                        "api-reference/documents/bot-implement/get-number-message-left"
                     ]
                 }
             ]
@@ -94,14 +96,48 @@
         {
             "group": "Endpoint Examples",
             "pages": [
-                "api-reference/endpoint/get",
-                "api-reference/endpoint/create",
-                "api-reference/endpoint/update",
-                "api-reference/endpoint/delete",
-                "api-reference/endpoint/get-conversation-history",
-                "api-reference/endpoint/get-streaming-response",
-                "api-reference/endpoint/get-streaming-response-with-custom-settings",
-                "api-reference/endpoint/get-number-message-left"
+                "api-reference/authentication/login-for-access-token",
+                {
+                    "group": "User",
+                    "pages": [
+                        "api-reference/user/create-user",
+                        "api-reference/user/resend-verify-email",
+                        "api-reference/user/handle-verify"
+                    ]
+                },
+                {
+                    "group": "Chat",
+                    "pages": [
+                        "api-reference/chat/get-streaming-response",
+                        "api-reference/chat/get-streaming-response-with-chat-history",
+                        "api-reference/chat/get-streaming-response-with-chat-history-1",
+                        "api-reference/chat/get-conversations-history",
+                        "api-reference/chat/get-normal-response",
+                        "api-reference/chat/get-num-message-left"
+                    ]
+                },
+                {
+                    "group": "Slack",
+                    "pages": [
+                        "api-reference/slack/auth-callback",
+                        "api-reference/slack/get-customer-info",
+                        "api-reference/slack/get-slack-bot-channel",
+                        "api-reference/slack/add-bot-to-channel"
+                    ]
+                },
+                {
+                    "group": "Integration",
+                    "pages": [
+                        "api-reference/integration/create-link-conversation",
+                        "api-reference/integration/get-linked-bot",
+                        "api-reference/integration/get-linked-bot-1",
+                        "api-reference/integration/get-linked-bot-2",
+                        "api-reference/integration/add-bot-to-messager-page",
+                        "api-reference/integration/get-bot-id-in-channel",
+                        "api-reference/integration/add-bot-to-channel-id",
+                        "api-reference/integration/get-telegram-access-token"
+                    ]
+                }
             ]
         }
     ],
