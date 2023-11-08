@@ -1,0 +1,3240 @@
+{
+    "openapi": "3.1.0",
+    "info": {
+        "title": "ChatFly Backend application",
+        "version": "0.0.0"
+    },
+    "paths": {
+        "/api/user": {
+            "post": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Create User",
+                "description": "Add user data to database.",
+                "operationId": "create_user_api_user_post",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UserCreateSchema"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UserSchema"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "get": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Get Users",
+                "description": "Get all user's information.",
+                "operationId": "get_users_api_user_get",
+                "parameters": [
+                    {
+                        "name": "skip",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "default": 0,
+                            "title": "Skip"
+                        }
+                    },
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "default": 100,
+                            "title": "Limit"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Delete User",
+                "description": "Delete user.",
+                "operationId": "delete_user_api_user_delete",
+                "parameters": [
+                    {
+                        "name": "user_id",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid",
+                            "title": "User Id"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/user/resend-verify-email": {
+            "post": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Resend Verify Email",
+                "description": "Add user data to database.",
+                "operationId": "resend_verify_email_api_user_resend_verify_email_post",
+                "parameters": [
+                    {
+                        "name": "email",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "title": "Email"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UserSchema"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/user/verify-email": {
+            "get": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Handle Verify",
+                "operationId": "handle_verify_api_user_verify_email_get",
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "title": "Token"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/user/{user_id}": {
+            "get": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Get User",
+                "description": "Get user information by an id.",
+                "operationId": "get_user_api_user__user_id__get",
+                "parameters": [
+                    {
+                        "name": "user_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid",
+                            "title": "User Id"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/bot/evaluation": {
+            "get": {
+                "tags": [
+                    "Bot"
+                ],
+                "summary": "Bot Evaluation Strong",
+                "operationId": "bot_evaluation_strong_api_bot_evaluation_get",
+                "security": [
+                    {
+                        "BasicAuth": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "bot_id",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid",
+                            "title": "Bot Id"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/chat/get-streaming-response": {
+            "post": {
+                "tags": [
+                    "Chat"
+                ],
+                "summary": "Get Streaming Response",
+                "description": "Create a Knowledge Base and return a streaming response.",
+                "operationId": "get_streaming_response_api_chat_get_streaming_response_post",
+                "parameters": [
+                    {
+                        "name": "type_qa",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "anyOf": [
+                                {
+                                    "type": "string"
+                                },
+                                {
+                                    "type": "null"
+                                }
+                            ],
+                            "title": "Type Qa"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ChatHistoryCreateSchema"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/chat/get-streaming-response-with-chat-history": {
+            "post": {
+                "tags": [
+                    "Chat"
+                ],
+                "summary": "Get Streaming Response With Chat History",
+                "description": "Get streaming response with chat history.",
+                "operationId": "get_streaming_response_with_chat_history_api_chat_get_streaming_response_with_chat_history_post",
+                "parameters": [
+                    {
+                        "name": "type_qa",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "anyOf": [
+                                {
+                                    "type": "string"
+                                },
+                                {
+                                    "type": "null"
+                                }
+                            ],
+                            "title": "Type Qa"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/StreamingWithChatHistorySchema"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/chat/get-streaming-response-with-custom-settings": {
+            "post": {
+                "tags": [
+                    "Chat"
+                ],
+                "summary": "Get Streaming Response With Chat History",
+                "description": "Get streaming response with custom settings.",
+                "operationId": "get_streaming_response_with_chat_history_api_chat_get_streaming_response_with_custom_settings_post",
+                "parameters": [
+                    {
+                        "name": "type_qa",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "anyOf": [
+                                {
+                                    "type": "string"
+                                },
+                                {
+                                    "type": "null"
+                                }
+                            ],
+                            "title": "Type Qa"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/StreamingWithCustomSettingsSchema"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/chat/history": {
+            "get": {
+                "tags": [
+                    "Chat"
+                ],
+                "summary": "Get Conversations History",
+                "description": "Get Conversation history.",
+                "operationId": "get_conversations_history_api_chat_history_get",
+                "security": [
+                    {
+                        "BasicAuth": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "bot_id",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid",
+                            "title": "Bot Id"
+                        }
+                    },
+                    {
+                        "name": "date_from",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "format": "date-time",
+                            "default": "2023-01-01T00:00:00",
+                            "title": "Date From"
+                        }
+                    },
+                    {
+                        "name": "date_to",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "format": "date-time",
+                            "default": "2030-12-31T00:00:00",
+                            "title": "Date To"
+                        }
+                    },
+                    {
+                        "name": "order",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "anyOf": [
+                                {
+                                    "type": "string"
+                                },
+                                {
+                                    "type": "null"
+                                }
+                            ],
+                            "default": "created_at.desc",
+                            "title": "Order"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/chat/session/{session_id}": {
+            "delete": {
+                "tags": [
+                    "Chat"
+                ],
+                "summary": "Delete Session",
+                "operationId": "delete_session_api_chat_session__session_id__delete",
+                "security": [
+                    {
+                        "BasicAuth": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "session_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "title": "Session Id"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/chat/get-normal-response": {
+            "post": {
+                "tags": [
+                    "Chat"
+                ],
+                "summary": "Get Normal Response",
+                "description": "Get a normal response.",
+                "operationId": "get_normal_response_api_chat_get_normal_response_post",
+                "parameters": [
+                    {
+                        "name": "message",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "title": "Message"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/chat/messager-webhook": {
+            "get": {
+                "tags": [
+                    "Chat"
+                ],
+                "summary": "Verify Message Webhook",
+                "operationId": "verify_message_webhook_api_chat_messager_webhook_get",
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Chat"
+                ],
+                "summary": "Send Message Webhook",
+                "operationId": "send_message_webhook_api_chat_messager_webhook_post",
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/chat/num-message-left": {
+            "get": {
+                "tags": [
+                    "Chat"
+                ],
+                "summary": "Get Num Message Left",
+                "operationId": "get_num_message_left_api_chat_num_message_left_get",
+                "security": [
+                    {
+                        "BasicAuth": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "bot_id",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid",
+                            "title": "Bot Id"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/NumMessageLeftResponse"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/chat/submit-information": {
+            "post": {
+                "tags": [
+                    "Chat"
+                ],
+                "summary": "Submit Information",
+                "operationId": "submit_information_api_chat_submit_information_post",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ChatHistorySubmitInformationSchema"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/slack/callback": {
+            "get": {
+                "tags": [
+                    "Slack"
+                ],
+                "summary": "Auth Callback",
+                "operationId": "auth_callback_api_slack_callback_get",
+                "parameters": [
+                    {
+                        "name": "code",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "title": "Code"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/slack/customer-info": {
+            "get": {
+                "tags": [
+                    "Slack"
+                ],
+                "summary": "Get Customer Info",
+                "operationId": "get_customer_info_api_slack_customer_info_get",
+                "parameters": [
+                    {
+                        "name": "app_id",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "title": "App Id"
+                        }
+                    },
+                    {
+                        "name": "team_id",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "title": "Team Id"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/slack/bot": {
+            "post": {
+                "tags": [
+                    "Slack"
+                ],
+                "summary": "Add Bot To Channel",
+                "operationId": "add_bot_to_channel_api_slack_bot_post",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/SlackBotChannelSchema"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "get": {
+                "tags": [
+                    "Slack"
+                ],
+                "summary": "Get Slack Bot Channel",
+                "operationId": "get_slack_bot_channel_api_slack_bot_get",
+                "parameters": [
+                    {
+                        "name": "slack_team_id",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "title": "Slack Team Id"
+                        }
+                    },
+                    {
+                        "name": "slack_channel_id",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "title": "Slack Channel Id"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/integration/ms-team/link-conversation": {
+            "post": {
+                "tags": [
+                    "Integration"
+                ],
+                "summary": "Create Link Conversation",
+                "description": "Create link conversation with bot.",
+                "operationId": "create_link_conversation_api_integration_ms_team_link_conversation_post",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ConversationSchema"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ConversationResponseSchema"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/integration/ms-team/linked-bot": {
+            "get": {
+                "tags": [
+                    "Integration"
+                ],
+                "summary": "Get Linked Bot",
+                "description": "Get linked bot.",
+                "operationId": "get_linked_bot_api_integration_ms_team_linked_bot_get",
+                "parameters": [
+                    {
+                        "name": "conversation_id",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid",
+                            "title": "Conversation Id"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/integration/ms-team/get-link-integration": {
+            "get": {
+                "tags": [
+                    "Integration"
+                ],
+                "summary": "Get Linked Bot",
+                "description": "Get linked bot.",
+                "operationId": "get_linked_bot_api_integration_ms_team_get_link_integration_get",
+                "security": [
+                    {
+                        "BasicAuth": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "bot_id",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid",
+                            "title": "Bot Id"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/integration/ms-team/linked-conversation": {
+            "get": {
+                "tags": [
+                    "Integration"
+                ],
+                "summary": "Get Linked Bot",
+                "description": "Get linked conversation.",
+                "operationId": "get_linked_bot_api_integration_ms_team_linked_conversation_get",
+                "parameters": [
+                    {
+                        "name": "bot_id",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid",
+                            "title": "Bot Id"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/integration/messager/{bot_id}": {
+            "post": {
+                "tags": [
+                    "Integration"
+                ],
+                "summary": "Add Bot To Messager Page",
+                "description": "Add bot to channel id.",
+                "operationId": "add_bot_to_messager_page_api_integration_messager__bot_id__post",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/IntegrationMessagerCreateSchema"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "BasicAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/integration/telegram/channel/{channel_id}": {
+            "post": {
+                "tags": [
+                    "Integration"
+                ],
+                "summary": "Add Bot To Channel Id",
+                "description": "Add bot to channel id.",
+                "operationId": "add_bot_to_channel_id_api_integration_telegram_channel__channel_id__post",
+                "parameters": [
+                    {
+                        "name": "channel_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "title": "Channel Id"
+                        }
+                    },
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "title": "Token"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "get": {
+                "tags": [
+                    "Integration"
+                ],
+                "summary": "Get Bot Id In Channel",
+                "description": "Get bot id by channel id.",
+                "operationId": "get_bot_id_in_channel_api_integration_telegram_channel__channel_id__get",
+                "parameters": [
+                    {
+                        "name": "channel_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "title": "Channel Id"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/integration/telegram/token": {
+            "get": {
+                "tags": [
+                    "Integration"
+                ],
+                "summary": "Get Telegram Access Token",
+                "description": "Get telegram access token.",
+                "operationId": "get_telegram_access_token_api_integration_telegram_token_get",
+                "security": [
+                    {
+                        "BasicAuth": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "bot_id",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid",
+                            "title": "Bot Id"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/token": {
+            "post": {
+                "tags": [
+                    "Authentication"
+                ],
+                "summary": "Login For Access Token",
+                "description": "Login for access token.",
+                "operationId": "login_for_access_token_token_post",
+                "requestBody": {
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Body_login_for_access_token_token_post"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/TokenSchema"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "BillingCreateSchema": {
+                "properties": {
+                    "id": {
+                        "anyOf": [
+                            {
+                                "type": "string",
+                                "format": "uuid"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Id",
+                        "omit_default": true
+                    },
+                    "user_id": {
+                        "anyOf": [
+                            {
+                                "type": "string",
+                                "format": "uuid"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "User Id",
+                        "omit_default": true
+                    },
+                    "is_active": {
+                        "anyOf": [
+                            {
+                                "type": "boolean"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Is Active",
+                        "default": true,
+                        "omit_default": true
+                    },
+                    "billing_type": {
+                        "type": "integer",
+                        "title": "Billing Type",
+                        "default": 1
+                    },
+                    "expires_at": {
+                        "anyOf": [
+                            {
+                                "type": "string",
+                                "format": "date-time"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Expires At",
+                        "default": "2023-11-12T09:39:34.587789",
+                        "omit_default": true
+                    }
+                },
+                "type": "object",
+                "title": "BillingCreateSchema",
+                "description": "Billing Create."
+            },
+            "BillingUpgradeSchema": {
+                "properties": {
+                    "user_id": {
+                        "anyOf": [
+                            {
+                                "type": "string",
+                                "format": "uuid"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "User Id",
+                        "omit_default": true
+                    },
+                    "billing_type": {
+                        "anyOf": [
+                            {
+                                "type": "integer"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Billing Type",
+                        "default": 1
+                    }
+                },
+                "type": "object",
+                "title": "BillingUpgradeSchema",
+                "description": "Billing update schema."
+            },
+            "Body_login_for_access_token_token_post": {
+                "properties": {
+                    "grant_type": {
+                        "anyOf": [
+                            {
+                                "type": "string",
+                                "pattern": "password"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Grant Type",
+                        "description": "This field represents the type of grant being used. It can either be a string matching the pattern \"password\" or null."
+                    },
+                    "username": {
+                        "type": "string",
+                        "title": "Username",
+                        "description": "This field represents a username. It is used to identify a user or entity within a system."
+                    },
+                    "password": {
+                        "type": "string",
+                        "title": "Password",
+                        "description": "This field represents a password. It is used as a secret authentication credential."
+                    },
+                    "scope": {
+                        "type": "string",
+                        "title": "Scope",
+                        "description": "This field represents the scope. The scope is a term commonly used in authentication and authorization to define the level of access or permissions granted to a user or client."
+                    },
+                    "client_id": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Client Id",
+                        "description": "This field represents a client ID. It is used to identify a client application or entity within a system."
+                    },
+                    "client_secret": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Client Secret",
+                        "description": "This field represents a client secret. It is a confidential credential used for authentication and authorization purposes by a client application or entity. It can either be a string or null."
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "username",
+                    "password"
+                ],
+                "title": "Body_login_for_access_token_token_post"
+            },
+            "Body_upload_bot_profile_picture_api_bot_upload_bot_profile_picture_post": {
+                "properties": {
+                    "bot_id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "title": "Bot Id"
+                    },
+                    "file": {
+                        "type": "string",
+                        "format": "binary",
+                        "title": "File",
+                        "description": "A file read as UploadFile"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "bot_id",
+                    "file"
+                ],
+                "title": "Body_upload_bot_profile_picture_api_bot_upload_bot_profile_picture_post"
+            },
+            "Body_upload_file_api_scraping_file_post": {
+                "properties": {
+                    "bot_id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "title": "Bot Id"
+                    },
+                    "file": {
+                        "type": "string",
+                        "format": "binary",
+                        "title": "File",
+                        "description": "A file read as UploadFile"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "bot_id",
+                    "file"
+                ],
+                "title": "Body_upload_file_api_scraping_file_post"
+            },
+            "BotCreateSchema": {
+                "properties": {
+                    "user_id": {
+                        "anyOf": [
+                            {
+                                "type": "string",
+                                "format": "uuid"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "User Id",
+                        "omit_default": true
+                    },
+                    "bot_name": {
+                        "type": "string",
+                        "title": "Bot Name"
+                    },
+                    "case_study": {
+                        "type": "string",
+                        "title": "Case Study"
+                    },
+                    "is_visibility": {
+                        "anyOf": [
+                            {
+                                "type": "boolean"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Is Visibility",
+                        "omit_default": true
+                    },
+                    "domain": {
+                        "anyOf": [
+                            {
+                                "items": {},
+                                "type": "array"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Domain",
+                        "omit_default": true
+                    },
+                    "collect_customer_info": {
+                        "anyOf": [
+                            {
+                                "type": "object"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Collect Customer Info",
+                        "omit_default": true
+                    },
+                    "rules": {
+                        "anyOf": [
+                            {
+                                "items": {
+                                    "type": "string"
+                                },
+                                "type": "array"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Rules",
+                        "omit_default": true
+                    },
+                    "gpt_model_name": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Gpt Model Name",
+                        "omit_default": true
+                    },
+                    "temperature": {
+                        "anyOf": [
+                            {
+                                "type": "number"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Temperature",
+                        "omit_default": true
+                    },
+                    "custom_prompt": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Custom Prompt",
+                        "omit_default": true
+                    },
+                    "bot_tone_type": {
+                        "anyOf": [
+                            {
+                                "type": "integer"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Bot Tone Type",
+                        "omit_default": true
+                    },
+                    "custom_error_message": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Custom Error Message",
+                        "omit_default": true
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "bot_name",
+                    "case_study"
+                ],
+                "title": "BotCreateSchema",
+                "description": "Bot create."
+            },
+            "BotDomainAccessSchema": {
+                "properties": {
+                    "bot_id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "title": "Bot Id"
+                    },
+                    "domain": {
+                        "items": {},
+                        "type": "array",
+                        "title": "Domain"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "bot_id",
+                    "domain"
+                ],
+                "title": "BotDomainAccessSchema",
+                "description": "Domain access schema."
+            },
+            "BotKnowledgeBaseFileResponseSchema": {
+                "properties": {
+                    "knowledge_base_id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "title": "Knowledge Base Id"
+                    },
+                    "filename": {
+                        "type": "string",
+                        "title": "Filename"
+                    },
+                    "num_token": {
+                        "type": "integer",
+                        "title": "Num Token"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "knowledge_base_id",
+                    "filename",
+                    "num_token"
+                ],
+                "title": "BotKnowledgeBaseFileResponseSchema",
+                "description": "Base knowledge get all files."
+            },
+            "BotKnowledgeBaseIncludeResources": {
+                "properties": {
+                    "type": {
+                        "type": "string",
+                        "title": "Type"
+                    },
+                    "number_of_resources": {
+                        "type": "integer",
+                        "title": "Number Of Resources"
+                    },
+                    "token": {
+                        "type": "integer",
+                        "title": "Token"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "type",
+                    "number_of_resources",
+                    "token"
+                ],
+                "title": "BotKnowledgeBaseIncludeResources",
+                "description": "Base knowledge get all includes resources"
+            },
+            "BotKnowledgeBaseIncludeResourcesResponse": {
+                "properties": {
+                    "resource": {
+                        "items": {
+                            "$ref": "#/components/schemas/BotKnowledgeBaseIncludeResources"
+                        },
+                        "type": "array",
+                        "title": "Resource"
+                    },
+                    "total_token": {
+                        "type": "integer",
+                        "title": "Total Token"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "resource",
+                    "total_token"
+                ],
+                "title": "BotKnowledgeBaseIncludeResourcesResponse"
+            },
+            "BotKnowledgeBaseResponseSchema": {
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "title": "Id"
+                    },
+                    "bot_id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "title": "Bot Id"
+                    },
+                    "full_page_url": {
+                        "type": "string",
+                        "title": "Full Page Url"
+                    },
+                    "training_status": {
+                        "type": "string",
+                        "title": "Training Status"
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "title": "Created At"
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "title": "Updated At"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "id",
+                    "bot_id",
+                    "full_page_url",
+                    "training_status",
+                    "created_at",
+                    "updated_at"
+                ],
+                "title": "BotKnowledgeBaseResponseSchema",
+                "description": "User Schema."
+            },
+            "BotKnowledgeBaseUrlResponseSchema": {
+                "properties": {
+                    "knowledge_base_id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "title": "Knowledge Base Id"
+                    },
+                    "url": {
+                        "type": "string",
+                        "title": "Url"
+                    },
+                    "num_token": {
+                        "type": "integer",
+                        "title": "Num Token"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "knowledge_base_id",
+                    "url",
+                    "num_token"
+                ],
+                "title": "BotKnowledgeBaseUrlResponseSchema",
+                "description": "Base knowledge get all urls."
+            },
+            "BotManyQADocumentSchema": {
+                "properties": {
+                    "user_id": {
+                        "anyOf": [
+                            {
+                                "type": "string",
+                                "format": "uuid"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "User Id",
+                        "omit_default": true
+                    },
+                    "bot_id": {
+                        "anyOf": [
+                            {
+                                "type": "string",
+                                "format": "uuid"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Bot Id",
+                        "omit_default": true
+                    },
+                    "question_answers": {
+                        "items": {
+                            "$ref": "#/components/schemas/QuestionAnswerInputSchema"
+                        },
+                        "type": "array",
+                        "title": "Question Answers"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "question_answers"
+                ],
+                "title": "BotManyQADocumentSchema",
+                "description": "Bot question and answer document schema."
+            },
+            "BotQADocumentResponseSchema": {
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "title": "Id"
+                    },
+                    "bot_id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "title": "Bot Id"
+                    },
+                    "question": {
+                        "type": "string",
+                        "title": "Question"
+                    },
+                    "answer": {
+                        "type": "string",
+                        "title": "Answer"
+                    },
+                    "num_token": {
+                        "type": "integer",
+                        "title": "Num Token"
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "title": "Created At"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "id",
+                    "bot_id",
+                    "question",
+                    "answer",
+                    "num_token",
+                    "created_at"
+                ],
+                "title": "BotQADocumentResponseSchema",
+                "description": "Bot question and answer document response schema."
+            },
+            "BotQADocumentSchema": {
+                "properties": {
+                    "user_id": {
+                        "anyOf": [
+                            {
+                                "type": "string",
+                                "format": "uuid"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "User Id",
+                        "omit_default": true
+                    },
+                    "bot_id": {
+                        "anyOf": [
+                            {
+                                "type": "string",
+                                "format": "uuid"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Bot Id",
+                        "omit_default": true
+                    },
+                    "question": {
+                        "type": "string",
+                        "title": "Question"
+                    },
+                    "answer": {
+                        "type": "string",
+                        "title": "Answer"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "question",
+                    "answer"
+                ],
+                "title": "BotQADocumentSchema",
+                "description": "Bot question and answer document schema."
+            },
+            "BotSchema": {
+                "properties": {
+                    "user_id": {
+                        "anyOf": [
+                            {
+                                "type": "string",
+                                "format": "uuid"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "User Id",
+                        "omit_default": true
+                    },
+                    "bot_name": {
+                        "type": "string",
+                        "title": "Bot Name"
+                    },
+                    "case_study": {
+                        "type": "string",
+                        "title": "Case Study"
+                    },
+                    "is_visibility": {
+                        "anyOf": [
+                            {
+                                "type": "boolean"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Is Visibility",
+                        "omit_default": true
+                    },
+                    "domain": {
+                        "anyOf": [
+                            {
+                                "items": {},
+                                "type": "array"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Domain",
+                        "omit_default": true
+                    },
+                    "collect_customer_info": {
+                        "anyOf": [
+                            {
+                                "type": "object"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Collect Customer Info",
+                        "omit_default": true
+                    },
+                    "rules": {
+                        "anyOf": [
+                            {
+                                "items": {
+                                    "type": "string"
+                                },
+                                "type": "array"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Rules",
+                        "omit_default": true
+                    },
+                    "gpt_model_name": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Gpt Model Name",
+                        "omit_default": true
+                    },
+                    "temperature": {
+                        "anyOf": [
+                            {
+                                "type": "number"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Temperature",
+                        "omit_default": true
+                    },
+                    "custom_prompt": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Custom Prompt",
+                        "omit_default": true
+                    },
+                    "bot_tone_type": {
+                        "anyOf": [
+                            {
+                                "type": "integer"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Bot Tone Type",
+                        "omit_default": true
+                    },
+                    "custom_error_message": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Custom Error Message",
+                        "omit_default": true
+                    },
+                    "id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "title": "Id"
+                    },
+                    "num_message_left": {
+                        "anyOf": [
+                            {
+                                "type": "integer"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Num Message Left",
+                        "omit_default": true
+                    },
+                    "created_at": {
+                        "anyOf": [
+                            {
+                                "type": "string",
+                                "format": "date-time"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Created At",
+                        "omit_default": true
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "title": "Updated At",
+                        "default": "2023-10-29T09:39:35.139355"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "bot_name",
+                    "case_study",
+                    "id"
+                ],
+                "title": "BotSchema",
+                "description": "Bot Schema."
+            },
+            "BotTemplateConfigResponseSchema": {
+                "properties": {
+                    "bot_template_config": {
+                        "anyOf": [
+                            {
+                                "items": {
+                                    "$ref": "#/components/schemas/BotTemplateConfigSchema"
+                                },
+                                "type": "array"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Bot Template Config"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "bot_template_config"
+                ],
+                "title": "BotTemplateConfigResponseSchema",
+                "description": "Bot template config response schema"
+            },
+            "BotTemplateConfigSchema": {
+                "properties": {
+                    "id": {
+                        "anyOf": [
+                            {
+                                "type": "string",
+                                "format": "uuid"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Id",
+                        "omit_default": true
+                    },
+                    "case_study": {
+                        "anyOf": [
+                            {
+                                "items": {},
+                                "type": "array"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Case Study",
+                        "omit_default": true
+                    },
+                    "prompt_template": {
+                        "anyOf": [
+                            {
+                                "items": {},
+                                "type": "array"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Prompt Template",
+                        "omit_default": true
+                    },
+                    "gpt_model_name": {
+                        "anyOf": [
+                            {
+                                "items": {},
+                                "type": "array"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Gpt Model Name",
+                        "omit_default": true
+                    },
+                    "visibility": {
+                        "anyOf": [
+                            {
+                                "items": {},
+                                "type": "array"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Visibility",
+                        "omit_default": true
+                    }
+                },
+                "type": "object",
+                "title": "BotTemplateConfigSchema",
+                "description": "Bot template config schema."
+            },
+            "BotUpdateSchema": {
+                "properties": {
+                    "user_id": {
+                        "anyOf": [
+                            {
+                                "type": "string",
+                                "format": "uuid"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "User Id",
+                        "omit_default": true
+                    },
+                    "bot_name": {
+                        "type": "string",
+                        "title": "Bot Name"
+                    },
+                    "case_study": {
+                        "type": "string",
+                        "title": "Case Study"
+                    },
+                    "is_visibility": {
+                        "anyOf": [
+                            {
+                                "type": "boolean"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Is Visibility",
+                        "omit_default": true
+                    },
+                    "domain": {
+                        "anyOf": [
+                            {
+                                "items": {},
+                                "type": "array"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Domain",
+                        "omit_default": true
+                    },
+                    "collect_customer_info": {
+                        "anyOf": [
+                            {
+                                "type": "object"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Collect Customer Info",
+                        "omit_default": true
+                    },
+                    "rules": {
+                        "anyOf": [
+                            {
+                                "items": {
+                                    "type": "string"
+                                },
+                                "type": "array"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Rules",
+                        "omit_default": true
+                    },
+                    "gpt_model_name": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Gpt Model Name",
+                        "omit_default": true
+                    },
+                    "temperature": {
+                        "anyOf": [
+                            {
+                                "type": "number"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Temperature",
+                        "omit_default": true
+                    },
+                    "custom_prompt": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Custom Prompt",
+                        "omit_default": true
+                    },
+                    "bot_tone_type": {
+                        "anyOf": [
+                            {
+                                "type": "integer"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Bot Tone Type",
+                        "omit_default": true
+                    },
+                    "custom_error_message": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Custom Error Message",
+                        "omit_default": true
+                    },
+                    "id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "title": "Id"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "bot_name",
+                    "case_study",
+                    "id"
+                ],
+                "title": "BotUpdateSchema",
+                "description": "Bot update."
+            },
+            "BotWidgetSettingSchema": {
+                "properties": {
+                    "bot_id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "title": "Bot Id"
+                    },
+                    "domain": {
+                        "anyOf": [
+                            {
+                                "items": {},
+                                "type": "array"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Domain",
+                        "omit_default": true
+                    },
+                    "display_name": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Display Name",
+                        "omit_default": true
+                    },
+                    "initial_message": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Initial Message",
+                        "omit_default": true
+                    },
+                    "suggest_messages": {
+                        "anyOf": [
+                            {
+                                "items": {},
+                                "type": "array"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Suggest Messages",
+                        "omit_default": true
+                    },
+                    "theme": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Theme",
+                        "omit_default": true
+                    },
+                    "bot_avatar_url": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Bot Avatar Url",
+                        "omit_default": true
+                    },
+                    "chat_icon_url": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Chat Icon Url",
+                        "omit_default": true
+                    },
+                    "chat_bubble_button_color": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Chat Bubble Button Color",
+                        "omit_default": true
+                    },
+                    "chat_message_color": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Chat Message Color",
+                        "omit_default": true
+                    },
+                    "align_chat_bubble_button": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Align Chat Bubble Button",
+                        "omit_default": true
+                    },
+                    "auto_show_initial_message_after": {
+                        "anyOf": [
+                            {
+                                "type": "number"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Auto Show Initial Message After",
+                        "omit_default": true
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "bot_id"
+                ],
+                "title": "BotWidgetSettingSchema",
+                "description": "Bot widget setting schema."
+            },
+            "ChatHistoryConversationInputSchema": {
+                "properties": {
+                    "bot_id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "title": "Bot Id"
+                    },
+                    "user_id": {
+                        "anyOf": [
+                            {
+                                "type": "string",
+                                "format": "uuid"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "User Id",
+                        "omit_default": true
+                    },
+                    "order": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Order",
+                        "default": "created_at.desc",
+                        "omit_default": true
+                    },
+                    "date_from": {
+                        "anyOf": [
+                            {
+                                "type": "string",
+                                "format": "date-time"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Date From",
+                        "default": "2023-01-01T00:00:00",
+                        "omit_default": true
+                    },
+                    "date_to": {
+                        "anyOf": [
+                            {
+                                "type": "string",
+                                "format": "date-time"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Date To",
+                        "default": "2030-12-31T00:00:00",
+                        "omit_default": true
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "bot_id"
+                ],
+                "title": "ChatHistoryConversationInputSchema",
+                "description": "Conversation history schema."
+            },
+            "ChatHistoryCreateSchema": {
+                "properties": {
+                    "bot_id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "title": "Bot Id"
+                    },
+                    "message": {
+                        "type": "string",
+                        "title": "Message"
+                    },
+                    "session_id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "title": "Session Id"
+                    },
+                    "user_id": {
+                        "anyOf": [
+                            {
+                                "type": "string",
+                                "format": "uuid"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "User Id",
+                        "omit_default": true
+                    },
+                    "sender": {
+                        "anyOf": [
+                            {
+                                "type": "string",
+                                "format": "uuid"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Sender",
+                        "omit_default": true
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "bot_id",
+                    "message",
+                    "session_id"
+                ],
+                "title": "ChatHistoryCreateSchema",
+                "description": "Message Schema."
+            },
+            "ChatHistorySchema": {
+                "properties": {
+                    "sender_type": {
+                        "type": "string",
+                        "title": "Sender Type"
+                    },
+                    "content": {
+                        "type": "string",
+                        "title": "Content"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "sender_type",
+                    "content"
+                ],
+                "title": "ChatHistorySchema",
+                "description": "Chat history response schema."
+            },
+            "ChatHistorySubmitInformationSchema": {
+                "properties": {
+                    "user_infor": {
+                        "type": "object",
+                        "title": "User Infor"
+                    },
+                    "bot_id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "title": "Bot Id"
+                    },
+                    "session_id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "title": "Session Id"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "user_infor",
+                    "bot_id",
+                    "session_id"
+                ],
+                "title": "ChatHistorySubmitInformationSchema"
+            },
+            "ConversationResponseSchema": {
+                "properties": {
+                    "bot_id": {
+                        "anyOf": [
+                            {
+                                "type": "string",
+                                "format": "uuid"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Bot Id"
+                    },
+                    "conversation_id": {
+                        "anyOf": [
+                            {
+                                "type": "string",
+                                "format": "uuid"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Conversation Id"
+                    },
+                    "id": {
+                        "anyOf": [
+                            {
+                                "type": "string",
+                                "format": "uuid"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Id"
+                    },
+                    "created_at": {
+                        "anyOf": [
+                            {
+                                "type": "string",
+                                "format": "date-time"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Created At",
+                        "omit_default": true
+                    },
+                    "updated_at": {
+                        "anyOf": [
+                            {
+                                "type": "string",
+                                "format": "date-time"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Updated At",
+                        "omit_default": true
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "bot_id",
+                    "conversation_id",
+                    "id"
+                ],
+                "title": "ConversationResponseSchema",
+                "description": "Conversation Response Schema."
+            },
+            "ConversationSchema": {
+                "properties": {
+                    "bot_id": {
+                        "anyOf": [
+                            {
+                                "type": "string",
+                                "format": "uuid"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Bot Id"
+                    },
+                    "conversation_id": {
+                        "anyOf": [
+                            {
+                                "type": "string",
+                                "format": "uuid"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Conversation Id"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "bot_id",
+                    "conversation_id"
+                ],
+                "title": "ConversationSchema",
+                "description": "Conversation Schema."
+            },
+            "HTTPValidationError": {
+                "properties": {
+                    "errors": {
+                        "items": {
+                            "$ref": "#/components/schemas/ValidationError"
+                        },
+                        "type": "array",
+                        "title": "Errors"
+                    }
+                },
+                "type": "object",
+                "title": "HTTPValidationError"
+            },
+            "IntegrationMessagerCreateSchema": {
+                "properties": {
+                    "user_id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "title": "User Id",
+                        "omit_default": true
+                    },
+                    "bot_id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "title": "Bot Id"
+                    },
+                    "page_id": {
+                        "type": "string",
+                        "title": "Page Id"
+                    },
+                    "page_token": {
+                        "type": "string",
+                        "title": "Page Token"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "bot_id",
+                    "page_id",
+                    "page_token"
+                ],
+                "title": "IntegrationMessagerCreateSchema",
+                "description": "Integration Messager Create Schema."
+            },
+            "KnowledgeBaseCreateSchema": {
+                "properties": {
+                    "bot_id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "title": "Bot Id"
+                    },
+                    "user_id": {
+                        "anyOf": [
+                            {
+                                "type": "string",
+                                "format": "uuid"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "User Id",
+                        "omit_default": true
+                    },
+                    "scrape_url": {
+                        "type": "string",
+                        "title": "Scrape Url"
+                    },
+                    "scrape_type": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/components/schemas/ScrapeTypeEnum"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "default": 2,
+                        "omit_default": true
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "bot_id",
+                    "scrape_url"
+                ],
+                "title": "KnowledgeBaseCreateSchema"
+            },
+            "NumMessageLeftResponse": {
+                "properties": {
+                    "bot_id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "title": "Bot Id"
+                    },
+                    "num_message_left": {
+                        "type": "integer",
+                        "title": "Num Message Left"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "bot_id",
+                    "num_message_left"
+                ],
+                "title": "NumMessageLeftResponse"
+            },
+            "QuestionAnswerInputSchema": {
+                "properties": {
+                    "question": {
+                        "type": "string",
+                        "title": "Question"
+                    },
+                    "answer": {
+                        "type": "string",
+                        "title": "Answer"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "question",
+                    "answer"
+                ],
+                "title": "QuestionAnswerInputSchema"
+            },
+            "ScrapeTypeEnum": {
+                "type": "integer",
+                "enum": [
+                    1,
+                    2
+                ],
+                "title": "ScrapeTypeEnum"
+            },
+            "SlackBotChannelSchema": {
+                "properties": {
+                    "bot_id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "title": "Bot Id"
+                    },
+                    "slack_channel_id": {
+                        "type": "string",
+                        "title": "Slack Channel Id"
+                    },
+                    "slack_team_id": {
+                        "type": "string",
+                        "title": "Slack Team Id"
+                    },
+                    "session_id": {
+                        "anyOf": [
+                            {
+                                "type": "string",
+                                "format": "uuid"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Session Id",
+                        "omit_default": true
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "bot_id",
+                    "slack_channel_id",
+                    "slack_team_id"
+                ],
+                "title": "SlackBotChannelSchema"
+            },
+            "StreamingWithChatHistorySchema": {
+                "properties": {
+                    "bot_id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "title": "Bot Id"
+                    },
+                    "message": {
+                        "type": "string",
+                        "title": "Message"
+                    },
+                    "chat_history": {
+                        "items": {
+                            "$ref": "#/components/schemas/ChatHistorySchema"
+                        },
+                        "type": "array",
+                        "title": "Chat History"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "bot_id",
+                    "message",
+                    "chat_history"
+                ],
+                "title": "StreamingWithChatHistorySchema",
+                "description": "Streaming With Chat History Schema."
+            },
+            "StreamingWithCustomSettingsSchema": {
+                "properties": {
+                    "bot_id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "title": "Bot Id"
+                    },
+                    "message": {
+                        "type": "string",
+                        "title": "Message"
+                    },
+                    "chat_history": {
+                        "items": {
+                            "$ref": "#/components/schemas/ChatHistorySchema"
+                        },
+                        "type": "array",
+                        "title": "Chat History",
+                        "default": [],
+                        "omit_default": true
+                    },
+                    "custom_prompt": {
+                        "type": "string",
+                        "title": "Custom Prompt",
+                        "default": "I want you to act as an assistant to a customer support agent by writing email responses. I will provide the customer inquiry or issue, and your task is to compose an appropriate, professional, and helpful response. You should not include additional instructions, questions, or explanations in your response. Only the main body of the email needs to be written.",
+                        "omit_default": true
+                    },
+                    "gpt_model_name": {
+                        "type": "string",
+                        "title": "Gpt Model Name",
+                        "default": "gpt-3.5-turbo-16k",
+                        "omit_default": true
+                    },
+                    "temperature": {
+                        "type": "number",
+                        "title": "Temperature",
+                        "default": 0,
+                        "omit_default": true
+                    },
+                    "rules": {
+                        "items": {
+                            "type": "string"
+                        },
+                        "type": "array",
+                        "title": "Rules",
+                        "default": [],
+                        "omit_default": true
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "bot_id",
+                    "message"
+                ],
+                "title": "StreamingWithCustomSettingsSchema",
+                "description": "Streaming With Chat History Schema."
+            },
+            "TokenSchema": {
+                "properties": {
+                    "access_token": {
+                        "type": "string",
+                        "title": "Access Token",
+                        "description": "A string token that is used for authentication and authorization purposes."
+                    },
+                    "token_type": {
+                        "type": "string",
+                        "title": "Token Type",
+                        "description": "The type or format of the access token."
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "access_token",
+                    "token_type"
+                ],
+                "title": "TokenSchema",
+                "description": "Token Model."
+            },
+            "UserCreateSchema": {
+                "properties": {
+                    "email": {
+                        "type": "string",
+                        "title": "Email"
+                    },
+                    "password": {
+                        "type": "string",
+                        "title": "Password"
+                    },
+                    "full_name": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Full Name",
+                        "omit_default": true
+                    },
+                    "role": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Role",
+                        "omit_default": true
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "email",
+                    "password"
+                ],
+                "title": "UserCreateSchema",
+                "description": "User create."
+            },
+            "UserSchema": {
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "title": "Id"
+                    },
+                    "email": {
+                        "type": "string",
+                        "title": "Email"
+                    },
+                    "is_active": {
+                        "type": "boolean",
+                        "title": "Is Active"
+                    },
+                    "created_at": {
+                        "anyOf": [
+                            {
+                                "type": "string",
+                                "format": "date-time"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Created At",
+                        "omit_default": true
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "title": "Updated At",
+                        "default": "2023-10-29T09:39:34.352880"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "id",
+                    "email",
+                    "is_active"
+                ],
+                "title": "UserSchema",
+                "description": "User Schema."
+            },
+            "ValidationError": {
+                "properties": {
+                    "loc": {
+                        "items": {
+                            "anyOf": [
+                                {
+                                    "type": "string"
+                                },
+                                {
+                                    "type": "integer"
+                                }
+                            ]
+                        },
+                        "type": "array",
+                        "title": "Location"
+                    },
+                    "msg": {
+                        "type": "string",
+                        "title": "Message"
+                    },
+                    "type": {
+                        "type": "string",
+                        "title": "Error Type"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "loc",
+                    "msg",
+                    "type"
+                ],
+                "title": "ValidationError"
+            }
+        },
+        "securitySchemes": {
+            "BasicAuth": {
+                "type": "oauth2",
+                "flows": {
+                    "password": {
+                        "scopes": {},
+                        "tokenUrl": "/token"
+                    }
+                }
+            },
+            "BasicAuth": {
+                "type": "http",
+                "scheme": "bearer"
+            }
+        }
+    }
+}
