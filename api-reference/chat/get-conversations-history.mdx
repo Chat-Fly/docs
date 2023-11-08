@@ -1,3 +1,40 @@
 ---
+title: "Get Conversation History"
 openapi: get /api/chat/history
+description: "This endpoint get conversation history"
 ---
+
+### Response
+<ResponseField name="JSON Response" type="string">
+  Conversation information.
+</ResponseField>
+
+<ResponseExample>
+
+```json Response Example
+[
+  {
+    "bot_name": "Chatfly",
+    "bot_id": "xxxx-xxxx-xxxx-xxxx",
+    "user_id": "xxxx-xxxx-xxxx-xxxx",
+    "session_id": "xxxx-xxxx-xxxx-xxxx",
+    "created_at": "2023-11-04T06:38:26.901921Z",
+    "chat_history_response": [
+      {
+        "sender_type": "user",
+        "content": "Hi"
+      },
+      {
+        "sender_type": "assistant",
+        "content": "Hello! How can I assist you today?"
+      },
+      {...
+      },
+      {...
+      }
+    ]
+  }
+]
+```
+
+</ResponseExample>

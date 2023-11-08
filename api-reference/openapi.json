@@ -504,7 +504,8 @@
                             "type": "string",
                             "format": "uuid",
                             "title": "Bot Id"
-                        }
+                        },
+                        "description": "This is the ID of the bot you want to get the conversation history."
                     },
                     {
                         "name": "date_from",
@@ -515,7 +516,8 @@
                             "format": "date-time",
                             "default": "2023-01-01T00:00:00",
                             "title": "Date From"
-                        }
+                        },
+                        "description": "This is thetart date you want get conversation history."
                     },
                     {
                         "name": "date_to",
@@ -526,7 +528,8 @@
                             "format": "date-time",
                             "default": "2030-12-31T00:00:00",
                             "title": "Date To"
-                        }
+                        },
+                        "description": "This is the end date you want get conversation history."
                     },
                     {
                         "name": "order",
@@ -543,29 +546,10 @@
                             ],
                             "default": "created_at.desc",
                             "title": "Order"
-                        }
+                        },
+                        "description": "This is the conversation sort option you want."
                     }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Successful Response",
-                        "content": {
-                            "application/json": {
-                                "schema": {}
-                            }
-                        }
-                    },
-                    "422": {
-                        "description": "Validation Error",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/HTTPValidationError"
-                                }
-                            }
-                        }
-                    }
-                }
+                ]
             }
         },
         "/api/chat/session/{session_id}": {
