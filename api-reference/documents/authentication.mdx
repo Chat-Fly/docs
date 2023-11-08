@@ -1,22 +1,44 @@
 ---
 title: "Authentication"
-description: "Example overview page before API endpoints"
+description: "Verify the identity of users accessing the ChatFly system"
 ---
+Authentication is the process of verifying and confirming the identity of a user or entity to ensure that only authorized individuals or entities can access a system or protected resources.
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas et eros iaculis tortor dapibus cursus. Curabitur quis sapien nec tortor dictum gravida.
+Token-based authentication relies on the issuance of a unique token to the user after a successful authentication. This token is used to verify the user's identity and access rights in subsequent requests.
 
+The authentication method used with ChatFly is `Bearer` token. In this method, a bearer token is provided to the user upon successful authentication. This token serves as proof of the user's identity and is included in the authorization header of subsequent requests to access protected resources. It allows the server to verify and authorize the user's access based on the validity and permissions associated with the token.
 ```bash
-'Authorization': 'Token <team_token>'
+'Authorization': 'bearer <access_token>'
 ```
 
-## API Tokens
+## How does this work?
 
-Nullam convallis mauris at nunc consectetur, ac imperdiet leo rutrum. Maecenas cursus purus a pellentesque blandit. Pellentesque vitae lacinia libero, non mollis metus.
+### Register an account
 
-Nam id ullamcorper urna, at rutrum enim. [Maecenas vulputate](/introduction) vehicula libero, vitae sodales augue pretium nec. Quisque a magna tempor, semper risus vel, fermentum nunc. Pellentesque fermentum interdum ex, eu convallis massa blandit sed. Aliquam bibendum ipsum vel laoreet auctor.
+Users register for an account on your system by providing requested information, such as username and password.
 
-### Permissions
+Your system will authenticate and store the user's credentials.
 
-Etiam lobortis ut odio ut fermentum. Nunc odio velit, sollicitudin at consectetur id, tristique eget turpis. Aliquam at risus vitae dolor sodales venenatis. In hac habitasse platea dictumst.
+An **API endpoint** for Register an ChatFly account: [https://backend.chatfly.co/api/user](/api-reference/user/create-user).
 
-Aenean consequat diam eget mollis fermentum. [Quisque eu malesuada](/introduction) felis, non dignissim libero.
+### Authentication and token generation
+
+The user sends an authentication request to your system by providing login information, such as username and password, through an **API endpoint**: [https://backend.chatfly.co/token](/api-reference/authentication/login-for-access-token)
+
+The response return like this:
+```json Response Example
+{
+  "message_code": 0,
+  "message": "API success",
+  "data": {
+    "access_token": "string token",
+    "token_type": "bearer"
+  }
+}
+```
+
+Users must send the token in the Authorization header of requests to ChatFly system.
+
+The Authorization header will have the following value: **Authorization: Bearer [access_token].**
+
+
