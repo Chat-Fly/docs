@@ -331,7 +331,8 @@
                                 }
                             ],
                             "title": "Type Qa"
-                        }
+                        },
+                        "description": "This is the type q&a for the bot you want to get the streaming response."
                     }
                 ],
                 "requestBody": {
@@ -350,16 +351,6 @@
                         "content": {
                             "application/json": {
                                 "schema": {}
-                            }
-                        }
-                    },
-                    "422": {
-                        "description": "Validation Error",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/HTTPValidationError"
-                                }
                             }
                         }
                     }
@@ -389,7 +380,8 @@
                                 }
                             ],
                             "title": "Type Qa"
-                        }
+                        },
+                        "description": "This is the type q&a for the bot you want to get the streaming response."
                     }
                 ],
                 "requestBody": {
@@ -410,16 +402,6 @@
                                 "schema": {}
                             }
                         }
-                    },
-                    "422": {
-                        "description": "Validation Error",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/HTTPValidationError"
-                                }
-                            }
-                        }
                     }
                 }
             }
@@ -429,7 +411,7 @@
                 "tags": [
                     "Chat"
                 ],
-                "summary": "Get Streaming Response With Chat History",
+                "summary": "Get Streaming Response With Custom Settings",
                 "description": "Get streaming response with custom settings.",
                 "operationId": "get_streaming_response_with_chat_history_api_chat_get_streaming_response_with_custom_settings_post",
                 "parameters": [
@@ -447,7 +429,8 @@
                                 }
                             ],
                             "title": "Type Qa"
-                        }
+                        },
+                        "description": "This is the type q&a for the bot you want to get the streaming response."
                     }
                 ],
                 "requestBody": {
@@ -466,16 +449,6 @@
                         "content": {
                             "application/json": {
                                 "schema": {}
-                            }
-                        }
-                    },
-                    "422": {
-                        "description": "Validation Error",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/HTTPValidationError"
-                                }
                             }
                         }
                     }
@@ -2583,16 +2556,19 @@
                     "bot_id": {
                         "type": "string",
                         "format": "uuid",
-                        "title": "Bot Id"
+                        "title": "Bot Id",
+                        "description": "This field represents the unique identifier of the chatbot."
                     },
                     "message": {
                         "type": "string",
-                        "title": "Message"
+                        "title": "Message",
+                        "description": "This field represents the content of a message exchanged."
                     },
                     "session_id": {
                         "type": "string",
                         "format": "uuid",
-                        "title": "Session Id"
+                        "title": "Session Id",
+                        "description": "This field represents the unique identifier of the chat session."
                     },
                     "user_id": {
                         "anyOf": [
@@ -2605,7 +2581,8 @@
                             }
                         ],
                         "title": "User Id",
-                        "omit_default": true
+                        "omit_default": true,
+                        "description": "This field represents the unique identifier of the user."
                     },
                     "sender": {
                         "anyOf": [
@@ -2618,7 +2595,8 @@
                             }
                         ],
                         "title": "Sender",
-                        "omit_default": true
+                        "omit_default": true,
+                        "description": "This field represents the unique identifier of the sender."
                     }
                 },
                 "type": "object",
@@ -2634,11 +2612,13 @@
                 "properties": {
                     "sender_type": {
                         "type": "string",
-                        "title": "Sender Type"
+                        "title": "Sender Type",
+                        "description": "This field represents the type of the sender.(User | Bot)"
                     },
                     "content": {
                         "type": "string",
-                        "title": "Content"
+                        "title": "Content",
+                        "description": "This field represents the content of a message exchanged."
                     }
                 },
                 "type": "object",
@@ -2960,18 +2940,21 @@
                     "bot_id": {
                         "type": "string",
                         "format": "uuid",
-                        "title": "Bot Id"
+                        "title": "Bot Id",
+                        "description": "This is the ID of the bot you want to get the streaming response."
                     },
                     "message": {
                         "type": "string",
-                        "title": "Message"
+                        "title": "Message",
+                        "description": "This is the message you want send to bot."
                     },
                     "chat_history": {
                         "items": {
                             "$ref": "#/components/schemas/ChatHistorySchema"
                         },
                         "type": "array",
-                        "title": "Chat History"
+                        "title": "Chat History",
+                        "description": "The chat history you want to get the streaming response."
                     }
                 },
                 "type": "object",
@@ -2988,11 +2971,13 @@
                     "bot_id": {
                         "type": "string",
                         "format": "uuid",
-                        "title": "Bot Id"
+                        "title": "Bot Id",
+                        "description": "This is the ID of the bot you want to get the streaming response."
                     },
                     "message": {
                         "type": "string",
-                        "title": "Message"
+                        "title": "Message",
+                        "description": "This is the message you want send to bot."
                     },
                     "chat_history": {
                         "items": {
@@ -3001,25 +2986,29 @@
                         "type": "array",
                         "title": "Chat History",
                         "default": [],
-                        "omit_default": true
+                        "omit_default": true,
+                        "description": "The chat history you want to get the streaming response."
                     },
                     "custom_prompt": {
                         "type": "string",
                         "title": "Custom Prompt",
                         "default": "I want you to act as an assistant to a customer support agent by writing email responses. I will provide the customer inquiry or issue, and your task is to compose an appropriate, professional, and helpful response. You should not include additional instructions, questions, or explanations in your response. Only the main body of the email needs to be written.",
-                        "omit_default": true
+                        "omit_default": true,
+                        "description": "The custom prompt you want to get the streaming response."
                     },
                     "gpt_model_name": {
                         "type": "string",
                         "title": "Gpt Model Name",
                         "default": "gpt-3.5-turbo-16k",
-                        "omit_default": true
+                        "omit_default": true,
+                        "description": "The gpt model name you want to get the streaming response."
                     },
                     "temperature": {
                         "type": "number",
                         "title": "Temperature",
                         "default": 0,
-                        "omit_default": true
+                        "omit_default": true,
+                        "description": "The temperature you want to get the streaming response."
                     },
                     "rules": {
                         "items": {
@@ -3028,7 +3017,8 @@
                         "type": "array",
                         "title": "Rules",
                         "default": [],
-                        "omit_default": true
+                        "omit_default": true,
+                        "description": "The rules you want to get the streaming response."
                     }
                 },
                 "type": "object",
