@@ -90,6 +90,16 @@
                         "api-reference/documents/bot-implement/get-conversation-history",
                         "api-reference/documents/bot-implement/get-number-message-left"
                     ]
+                },
+                {
+                    "group": "Bot Integration",
+                    "pages": [
+                        "api-reference/documents/bot-integration/embed-on-site",
+                        "api-reference/documents/bot-integration/integration-slack",
+                        "api-reference/documents/bot-integration/integration-microsoft-team",
+                        "api-reference/documents/bot-integration/integration-telegram"
+
+                        ]
                 }
             ]
         },
