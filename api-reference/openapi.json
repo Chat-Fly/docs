@@ -5,6 +5,149 @@
         "version": "0.0.0"
     },
     "paths": {
+        "/api/payment/latest-invoice": {
+            "get": {
+                "tags": [
+                    "Payment"
+                ],
+                "summary": "Get Latest Invoice",
+                "operationId": "get_latest_invoice_api_payment_latest_invoice_get",
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "OAuth2PasswordBearerCookie": []
+                    }
+                ]
+            }
+        },
+        "/api/payment/ninepay/get-payment-url": {
+            "get": {
+                "tags": [
+                    "Payment"
+                ],
+                "summary": "Get Payment Url",
+                "description": "Get payment url",
+                "operationId": "get_payment_url_api_payment_ninepay_get_payment_url_get",
+                "security": [
+                    {
+                        "OAuth2PasswordBearerCookie": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "billing_type",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "title": "Billing Type"
+                        }
+                    },
+                    {
+                        "name": "subscription_time_type",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "title": "Subscription Time Type"
+                        }
+                    },
+                    {
+                        "name": "lang",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/components/schemas/LanguageEnum"
+                        }
+                    },
+                    {
+                        "name": "currency",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/components/schemas/CurrencyEnum"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/payment/ninepay/callback": {
+            "get": {
+                "tags": [
+                    "Payment"
+                ],
+                "summary": "Callback",
+                "description": "Callback",
+                "operationId": "callback_api_payment_ninepay_callback_get",
+                "parameters": [
+                    {
+                        "name": "result",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "title": "Result"
+                        }
+                    },
+                    {
+                        "name": "checksum",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "title": "Checksum"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/api/user": {
             "post": {
                 "tags": [
@@ -262,16 +405,637 @@
                 }
             }
         },
-        "/api/bot/evaluation": {
+        "/api/user/forgot-password": {
+            "put": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Forgot Password",
+                "description": "Forgot password.",
+                "operationId": "forgot_password_api_user_forgot_password_put",
+                "parameters": [
+                    {
+                        "name": "email",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "title": "Email"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/user/forgot-password/verify": {
+            "put": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Verify Forgot Password",
+                "description": "Verify token forgot password.",
+                "operationId": "verify_forgot_password_api_user_forgot_password_verify_put",
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "title": "Token"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/user/forgot-password/change-password": {
+            "put": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Change Password",
+                "description": "Change password.",
+                "operationId": "change_password_api_user_forgot_password_change_password_put",
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "title": "Token"
+                        }
+                    },
+                    {
+                        "name": "password",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "title": "Password"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UserSchema"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/user/password": {
+            "put": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Change Password With Auth",
+                "description": "Change password with authentication.",
+                "operationId": "change_password_with_auth_api_user_password_put",
+                "security": [
+                    {
+                        "OAuth2PasswordBearerCookie": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "password",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "title": "Password"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UserSchema"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/user/activate-account-user": {
+            "post": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Activate Account User",
+                "operationId": "activate_account_user_api_user_activate_account_user_post",
+                "parameters": [
+                    {
+                        "name": "email",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "title": "Email"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/user/billing-upgrade-request": {
+            "post": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Send Email Upgrade",
+                "description": "Send email upgrade billing to admin.",
+                "operationId": "send_email_upgrade_api_user_billing_upgrade_request_post",
+                "parameters": [
+                    {
+                        "name": "email",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "title": "Email"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/user/auth/google/callback": {
+            "get": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Login Callback",
+                "operationId": "login_callback_api_user_auth_google_callback_get",
+                "parameters": [
+                    {
+                        "name": "access_token",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "title": "Access Token"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/bot": {
+            "post": {
+                "tags": [
+                    "Bot"
+                ],
+                "summary": "Create Bot",
+                "description": "Create a bot.",
+                "operationId": "create_bot_api_bot_post",
+                "security": [
+                    {
+                        "OAuth2PasswordBearerCookie": []
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/BotCreateSchema"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/BotSchema"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Bot"
+                ],
+                "summary": "Update Bot",
+                "description": "Update bot.",
+                "operationId": "update_bot_api_bot_put",
+                "security": [
+                    {
+                        "OAuth2PasswordBearerCookie": []
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/BotUpdateSchema"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/BotSchema"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Bot"
+                ],
+                "summary": "Delete Bot",
+                "description": "Delete bot.",
+                "operationId": "delete_bot_api_bot_delete",
+                "security": [
+                    {
+                        "OAuth2PasswordBearerCookie": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "bot_id",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid",
+                            "title": "Bot Id"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
             "get": {
                 "tags": [
                     "Bot"
                 ],
-                "summary": "Bot Evaluation Strong",
-                "operationId": "bot_evaluation_strong_api_bot_evaluation_get",
+                "summary": "Manage Bot",
+                "description": "Manage bot.",
+                "operationId": "manage_bot_api_bot_get",
                 "security": [
                     {
-                        "BasicAuth": []
+                        "OAuth2PasswordBearerCookie": []
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/bot/change-status": {
+            "post": {
+                "tags": [
+                    "Bot"
+                ],
+                "summary": "Change Status Bot",
+                "description": "Change status bot.",
+                "operationId": "change_status_bot_api_bot_change_status_post",
+                "security": [
+                    {
+                        "OAuth2PasswordBearerCookie": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "bot_id",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid",
+                            "title": "Bot Id"
+                        }
+                    },
+                    {
+                        "name": "is_activate",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "boolean",
+                            "title": "Is Activate"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/bot/rate-limit-per-day": {
+            "get": {
+                "tags": [
+                    "Bot"
+                ],
+                "summary": "Get Rate Limit Per Day",
+                "description": "Get rate limit per day.",
+                "operationId": "get_rate_limit_per_day_api_bot_rate_limit_per_day_get",
+                "security": [
+                    {
+                        "OAuth2PasswordBearerCookie": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "bot_id",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid",
+                            "title": "Bot Id"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Bot"
+                ],
+                "summary": "Change Rate Limit Per Day",
+                "description": "Change rate limit per day.",
+                "operationId": "change_rate_limit_per_day_api_bot_rate_limit_per_day_post",
+                "security": [
+                    {
+                        "OAuth2PasswordBearerCookie": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "bot_id",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid",
+                            "title": "Bot Id"
+                        }
+                    },
+                    {
+                        "name": "rate_limit_per_day",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "title": "Rate Limit Per Day"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/bot/share": {
+            "get": {
+                "tags": [
+                    "Bot"
+                ],
+                "summary": "Share Bot",
+                "description": "Manage share bot.",
+                "operationId": "share_bot_api_bot_share_get",
+                "security": [
+                    {
+                        "OAuth2PasswordBearerCookie": []
                     }
                 ],
                 "parameters": [
@@ -308,6 +1072,1498 @@
                 }
             }
         },
+        "/api/bot/share/verify": {
+            "post": {
+                "tags": [
+                    "Bot"
+                ],
+                "summary": "Verify Share Bot",
+                "description": "Verify share bot.",
+                "operationId": "verify_share_bot_api_bot_share_verify_post",
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "title": "Token"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/BotSchema"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/bot/information": {
+            "get": {
+                "tags": [
+                    "Bot"
+                ],
+                "summary": "Manage Bot",
+                "description": "Information bot.",
+                "operationId": "manage_bot_api_bot_information_get",
+                "security": [
+                    {
+                        "OAuth2PasswordBearerCookie": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "bot_id",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid",
+                            "title": "Bot Id"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/BotSchema"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/bot/information/collect-customer-info": {
+            "get": {
+                "tags": [
+                    "Bot"
+                ],
+                "summary": "Get Collect Customer Info",
+                "operationId": "get_collect_customer_info_api_bot_information_collect_customer_info_get",
+                "parameters": [
+                    {
+                        "name": "bot_id",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid",
+                            "title": "Bot Id"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/bot/bot-template-config": {
+            "post": {
+                "tags": [
+                    "Bot"
+                ],
+                "summary": "Create Bot Template Config",
+                "operationId": "create_bot_template_config_api_bot_bot_template_config_post",
+                "security": [
+                    {
+                        "OAuth2PasswordBearerCookie": []
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/BotTemplateConfigSchema"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/BotTemplateConfigSchema"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "get": {
+                "tags": [
+                    "Bot"
+                ],
+                "summary": "Get Bot Template Config",
+                "description": "Get bot template config.",
+                "operationId": "get_bot_template_config_api_bot_bot_template_config_get",
+                "parameters": [
+                    {
+                        "name": "skip",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "default": 0,
+                            "title": "Skip"
+                        }
+                    },
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "default": 100,
+                            "title": "Limit"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/BotTemplateConfigResponseSchema"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Bot"
+                ],
+                "summary": "Update Bot Template Config",
+                "description": "Update bot template config.",
+                "operationId": "update_bot_template_config_api_bot_bot_template_config_put",
+                "security": [
+                    {
+                        "OAuth2PasswordBearerCookie": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "bot_template_config_id",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid",
+                            "title": "Bot Template Config Id"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/BotTemplateConfigSchema"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/BotTemplateConfigSchema"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Bot"
+                ],
+                "summary": "Delete Bot Template Config",
+                "description": "Delete bot template config.",
+                "operationId": "delete_bot_template_config_api_bot_bot_template_config_delete",
+                "security": [
+                    {
+                        "OAuth2PasswordBearerCookie": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "bot_template_config_id",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid",
+                            "title": "Bot Template Config Id"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/BotTemplateConfigSchema"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/bot/bot-widget-setting": {
+            "get": {
+                "tags": [
+                    "Bot"
+                ],
+                "summary": "Get Bot Widget Setting",
+                "description": "Get bot widget settings by bot id",
+                "operationId": "get_bot_widget_setting_api_bot_bot_widget_setting_get",
+                "parameters": [
+                    {
+                        "name": "bot_id",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid",
+                            "title": "Bot Id"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/BotWidgetSettingSchema"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Bot"
+                ],
+                "summary": "Create Bot Widget Setting",
+                "description": "Create a new bot widget setting.",
+                "operationId": "create_bot_widget_setting_api_bot_bot_widget_setting_post",
+                "security": [
+                    {
+                        "OAuth2PasswordBearerCookie": []
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/BotWidgetSettingSchema"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/BotWidgetSettingSchema"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Bot"
+                ],
+                "summary": "Update Bot Widget Setting",
+                "description": "Update bot widget setting.",
+                "operationId": "update_bot_widget_setting_api_bot_bot_widget_setting_put",
+                "security": [
+                    {
+                        "OAuth2PasswordBearerCookie": []
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/BotWidgetSettingSchema"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/BotWidgetSettingSchema"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Bot"
+                ],
+                "summary": "Delete Bot Widget Setting",
+                "description": "Delete bot widget setting.",
+                "operationId": "delete_bot_widget_setting_api_bot_bot_widget_setting_delete",
+                "security": [
+                    {
+                        "OAuth2PasswordBearerCookie": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "bot_id",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid",
+                            "title": "Bot Id"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/BotWidgetSettingSchema"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/bot/upload-bot-profile-picture": {
+            "post": {
+                "tags": [
+                    "Bot"
+                ],
+                "summary": "Upload Bot Profile Picture",
+                "description": "Upload bot profile picture to S3",
+                "operationId": "upload_bot_profile_picture_api_bot_upload_bot_profile_picture_post",
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Body_upload_bot_profile_picture_api_bot_upload_bot_profile_picture_post"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "OAuth2PasswordBearerCookie": []
+                    }
+                ]
+            }
+        },
+        "/api/bot/domain-access": {
+            "post": {
+                "tags": [
+                    "Bot"
+                ],
+                "summary": "Update Domain Access",
+                "operationId": "update_domain_access_api_bot_domain_access_post",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/BotDomainAccessSchema"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "OAuth2PasswordBearerCookie": []
+                    }
+                ]
+            }
+        },
+        "/api/bot/evaluation": {
+            "get": {
+                "tags": [
+                    "Bot"
+                ],
+                "summary": "Bot Evaluation Strong",
+                "operationId": "bot_evaluation_strong_api_bot_evaluation_get",
+                "security": [
+                    {
+                        "OAuth2PasswordBearerCookie": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "bot_id",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid",
+                            "title": "Bot Id"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/scraping/url": {
+            "post": {
+                "tags": [
+                    "Scraping"
+                ],
+                "summary": "Scrape Url",
+                "description": "Create a Knowledge Base and return a streaming response.",
+                "operationId": "scrape_url_api_scraping_url_post",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/KnowledgeBaseCreateSchema"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "OAuth2PasswordBearerCookie": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Scraping"
+                ],
+                "summary": "Delete Url Knowledge Base",
+                "operationId": "delete_url_knowledge_base_api_scraping_url_delete",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/KnowledgeBaseDeleteURLSchema"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "OAuth2PasswordBearerCookie": []
+                    }
+                ]
+            }
+        },
+        "/api/scraping/url/{bot_id}": {
+            "get": {
+                "tags": [
+                    "Scraping"
+                ],
+                "summary": "Get All Url",
+                "description": "Get all urls for a given bot by bot_id",
+                "operationId": "get_all_url_api_scraping_url__bot_id__get",
+                "security": [
+                    {
+                        "OAuth2PasswordBearerCookie": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "bot_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid",
+                            "title": "Bot Id"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/BotKnowledgeBaseUrlResponseSchema"
+                                    },
+                                    "title": "Response Get All Url Api Scraping Url  Bot Id  Get"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/scraping/file/{bot_id}": {
+            "get": {
+                "tags": [
+                    "Scraping"
+                ],
+                "summary": "Get All File",
+                "description": "Get all urls for a given bot by bot_id",
+                "operationId": "get_all_file_api_scraping_file__bot_id__get",
+                "security": [
+                    {
+                        "OAuth2PasswordBearerCookie": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "bot_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid",
+                            "title": "Bot Id"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/BotKnowledgeBaseFileResponseSchema"
+                                    },
+                                    "title": "Response Get All File Api Scraping File  Bot Id  Get"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/scraping/include-resources/{bot_id}": {
+            "get": {
+                "tags": [
+                    "Scraping"
+                ],
+                "summary": "Get Include Resources",
+                "operationId": "get_include_resources_api_scraping_include_resources__bot_id__get",
+                "security": [
+                    {
+                        "OAuth2PasswordBearerCookie": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "bot_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid",
+                            "title": "Bot Id"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/BotKnowledgeBaseIncludeResourcesResponse"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/scraping/file": {
+            "post": {
+                "tags": [
+                    "Scraping"
+                ],
+                "summary": "Upload File",
+                "operationId": "upload_file_api_scraping_file_post",
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Body_upload_file_api_scraping_file_post"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "OAuth2PasswordBearerCookie": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Scraping"
+                ],
+                "summary": "Delete File Knowledge Base",
+                "operationId": "delete_file_knowledge_base_api_scraping_file_delete",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/KnowledgeBaseDeleteFileSchema"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "OAuth2PasswordBearerCookie": []
+                    }
+                ]
+            }
+        },
+        "/api/scraping/{bot_id}": {
+            "get": {
+                "tags": [
+                    "Scraping"
+                ],
+                "summary": "Get Status Of All Knowledge Bases",
+                "description": "Get all knowledge bases.\n\n@param bot_id: Bot to get all knowledge bases\n@param db: Databases to use for retrieval.\n\n@return list of dicts",
+                "operationId": "get_status_of_all_knowledge_bases_api_scraping__bot_id__get",
+                "parameters": [
+                    {
+                        "name": "bot_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid",
+                            "title": "Bot Id"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/BotKnowledgeBaseResponseSchema"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/scraping/question-answer/{bot_id}": {
+            "post": {
+                "tags": [
+                    "Scraping"
+                ],
+                "summary": "Add One Question Answer",
+                "description": "Import question and answer of bot.",
+                "operationId": "add_one_question_answer_api_scraping_question_answer__bot_id__post",
+                "security": [
+                    {
+                        "OAuth2PasswordBearerCookie": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "bot_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid",
+                            "title": "Bot Id"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/BotQADocumentSchema"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/BotQADocumentResponseSchema"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "get": {
+                "tags": [
+                    "Scraping"
+                ],
+                "summary": "Get All Question Answer",
+                "description": "Get question and answer of bot.",
+                "operationId": "get_all_question_answer_api_scraping_question_answer__bot_id__get",
+                "security": [
+                    {
+                        "OAuth2PasswordBearerCookie": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "bot_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid",
+                            "title": "Bot Id"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/BotQADocumentResponseSchema"
+                                    },
+                                    "title": "Response Get All Question Answer Api Scraping Question Answer  Bot Id  Get"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Scraping"
+                ],
+                "summary": "Delete Question Answer",
+                "description": "Delete question and answer of bot.",
+                "operationId": "delete_question_answer_api_scraping_question_answer__bot_id__delete",
+                "security": [
+                    {
+                        "OAuth2PasswordBearerCookie": []
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/KnowledgeBaseDeleteQASchema"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/scraping/question-answer/{bot_id}/many": {
+            "post": {
+                "tags": [
+                    "Scraping"
+                ],
+                "summary": "Add Many Question Answer",
+                "description": "Import question and answer of bot.",
+                "operationId": "add_many_question_answer_api_scraping_question_answer__bot_id__many_post",
+                "security": [
+                    {
+                        "OAuth2PasswordBearerCookie": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "bot_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid",
+                            "title": "Bot Id"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/BotManyQADocumentSchema"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/BotQADocumentResponseSchema"
+                                    },
+                                    "title": "Response Add Many Question Answer Api Scraping Question Answer  Bot Id  Many Post"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/scraping/text-document/{bot_id}": {
+            "post": {
+                "tags": [
+                    "Scraping"
+                ],
+                "summary": "Add One Text Document",
+                "description": "Import text document of bot.",
+                "operationId": "add_one_text_document_api_scraping_text_document__bot_id__post",
+                "security": [
+                    {
+                        "OAuth2PasswordBearerCookie": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "bot_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid",
+                            "title": "Bot Id"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ImportTextDocumentSchema"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/BotTextDocumentResponseSchema"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "get": {
+                "tags": [
+                    "Scraping"
+                ],
+                "summary": "Get All Text Document",
+                "description": "Get text document of bot.",
+                "operationId": "get_all_text_document_api_scraping_text_document__bot_id__get",
+                "security": [
+                    {
+                        "OAuth2PasswordBearerCookie": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "bot_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid",
+                            "title": "Bot Id"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/BotTextDocumentResponseSchema"
+                                    },
+                                    "title": "Response Get All Text Document Api Scraping Text Document  Bot Id  Get"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Scraping"
+                ],
+                "summary": "Delete Text Document",
+                "description": "Delete text document of bot.",
+                "operationId": "delete_text_document_api_scraping_text_document__bot_id__delete",
+                "security": [
+                    {
+                        "OAuth2PasswordBearerCookie": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "bot_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid",
+                            "title": "Bot Id"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/KnowledgeBaseDeleteTextSchema"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/scraping/text-document/{bot_id}/many": {
+            "post": {
+                "tags": [
+                    "Scraping"
+                ],
+                "summary": "Add Many Text Document",
+                "description": "Import text document of bot.",
+                "operationId": "add_many_text_document_api_scraping_text_document__bot_id__many_post",
+                "security": [
+                    {
+                        "OAuth2PasswordBearerCookie": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "bot_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid",
+                            "title": "Bot Id"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/BotManyTextDocumentSchema"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/BotTextDocumentResponseSchema"
+                                    },
+                                    "title": "Response Add Many Text Document Api Scraping Text Document  Bot Id  Many Post"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/chat/session": {
+            "post": {
+                "tags": [
+                    "Chat"
+                ],
+                "summary": "Generate Session",
+                "description": "Generate new session uuid",
+                "operationId": "generate_session_api_chat_session_post",
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "additionalProperties": {
+                                        "type": "string"
+                                    },
+                                    "type": "object",
+                                    "title": "Response Generate Session Api Chat Session Post"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/api/chat/get-streaming-response": {
             "post": {
                 "tags": [
@@ -331,8 +2587,7 @@
                                 }
                             ],
                             "title": "Type Qa"
-                        },
-                        "description": "This is the type q&a for the bot you want to get the streaming response."
+                        }
                     }
                 ],
                 "requestBody": {
@@ -351,6 +2606,16 @@
                         "content": {
                             "application/json": {
                                 "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
                             }
                         }
                     }
@@ -380,8 +2645,7 @@
                                 }
                             ],
                             "title": "Type Qa"
-                        },
-                        "description": "This is the type q&a for the bot you want to get the streaming response."
+                        }
                     }
                 ],
                 "requestBody": {
@@ -402,6 +2666,16 @@
                                 "schema": {}
                             }
                         }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -411,7 +2685,7 @@
                 "tags": [
                     "Chat"
                 ],
-                "summary": "Get Streaming Response With Custom Settings",
+                "summary": "Get Streaming Response With Chat History",
                 "description": "Get streaming response with custom settings.",
                 "operationId": "get_streaming_response_with_chat_history_api_chat_get_streaming_response_with_custom_settings_post",
                 "parameters": [
@@ -429,8 +2703,7 @@
                                 }
                             ],
                             "title": "Type Qa"
-                        },
-                        "description": "This is the type q&a for the bot you want to get the streaming response."
+                        }
                     }
                 ],
                 "requestBody": {
@@ -451,6 +2724,16 @@
                                 "schema": {}
                             }
                         }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -465,7 +2748,7 @@
                 "operationId": "get_conversations_history_api_chat_history_get",
                 "security": [
                     {
-                        "BasicAuth": []
+                        "OAuth2PasswordBearerCookie": []
                     }
                 ],
                 "parameters": [
@@ -477,8 +2760,7 @@
                             "type": "string",
                             "format": "uuid",
                             "title": "Bot Id"
-                        },
-                        "description": "This is the ID of the bot you want to get the conversation history."
+                        }
                     },
                     {
                         "name": "date_from",
@@ -489,8 +2771,7 @@
                             "format": "date-time",
                             "default": "2023-01-01T00:00:00",
                             "title": "Date From"
-                        },
-                        "description": "This is thetart date you want get conversation history."
+                        }
                     },
                     {
                         "name": "date_to",
@@ -501,8 +2782,7 @@
                             "format": "date-time",
                             "default": "2030-12-31T00:00:00",
                             "title": "Date To"
-                        },
-                        "description": "This is the end date you want get conversation history."
+                        }
                     },
                     {
                         "name": "order",
@@ -519,10 +2799,29 @@
                             ],
                             "default": "created_at.desc",
                             "title": "Order"
-                        },
-                        "description": "This is the conversation sort option you want."
+                        }
                     }
-                ]
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
             }
         },
         "/api/chat/session/{session_id}": {
@@ -534,7 +2833,7 @@
                 "operationId": "delete_session_api_chat_session__session_id__delete",
                 "security": [
                     {
-                        "BasicAuth": []
+                        "OAuth2PasswordBearerCookie": []
                     }
                 ],
                 "parameters": [
@@ -586,11 +2885,28 @@
                         "schema": {
                             "type": "string",
                             "title": "Message"
-                        },
-                        "description": "This field represents the content of a message sent to the chatbot."
+                        }
                     }
                 ],
                 "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
                 }
             }
         },
@@ -630,6 +2946,108 @@
                 }
             }
         },
+        "/api/chat/history.pdf": {
+            "post": {
+                "tags": [
+                    "Chat"
+                ],
+                "summary": "Convert History Export Pdf",
+                "description": "Export Conversation History to PDF",
+                "operationId": "convert_history_export_pdf_api_chat_history_pdf_post",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ChatHistoryConversationInputSchema"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "OAuth2PasswordBearerCookie": []
+                    }
+                ]
+            }
+        },
+        "/api/chat/{session_id}/history.pdf": {
+            "post": {
+                "tags": [
+                    "Chat"
+                ],
+                "summary": "Get Session Chat History",
+                "description": "Export Conversation History to PDF",
+                "operationId": "get_session_chat_history_api_chat__session_id__history_pdf_post",
+                "security": [
+                    {
+                        "OAuth2PasswordBearerCookie": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "session_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid",
+                            "title": "Session Id"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ChatHistoryConversationInputSchema"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/api/chat/num-message-left": {
             "get": {
                 "tags": [
@@ -639,7 +3057,7 @@
                 "operationId": "get_num_message_left_api_chat_num_message_left_get",
                 "security": [
                     {
-                        "BasicAuth": []
+                        "OAuth2PasswordBearerCookie": []
                     }
                 ],
                 "parameters": [
@@ -651,8 +3069,7 @@
                             "type": "string",
                             "format": "uuid",
                             "title": "Bot Id"
-                        },
-                        "description": "This is the ID of the bot you want to get number message left."
+                        }
                     }
                 ],
                 "responses": {
@@ -662,6 +3079,16 @@
                             "application/json": {
                                 "schema": {
                                     "$ref": "#/components/schemas/NumMessageLeftResponse"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
                                 }
                             }
                         }
@@ -706,6 +3133,124 @@
                         }
                     }
                 }
+            }
+        },
+        "/api/billing/upgrade": {
+            "post": {
+                "tags": [
+                    "Billing"
+                ],
+                "summary": "Billing Upgrade",
+                "operationId": "billing_upgrade_api_billing_upgrade_post",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/BillingUpgradeSchema"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/BillingCreateSchema"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "OAuth2PasswordBearerCookie": []
+                    }
+                ]
+            }
+        },
+        "/api/billing/get-current-pricing-plan": {
+            "get": {
+                "tags": [
+                    "Billing"
+                ],
+                "summary": "Get Current Pricing Plans",
+                "operationId": "get_current_pricing_plans_api_billing_get_current_pricing_plan_get",
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "OAuth2PasswordBearerCookie": []
+                    }
+                ]
+            }
+        },
+        "/api/billing/upgrade/vnpay-return": {
+            "get": {
+                "tags": [
+                    "Billing"
+                ],
+                "summary": "Vnpay Billing Upgrade With Return",
+                "operationId": "vnpay_billing_upgrade_with_return_api_billing_upgrade_vnpay_return_get",
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "OAuth2PasswordBearerCookie": []
+                    }
+                ]
+            }
+        },
+        "/api/billing/upgrade/vnpay-sandbox": {
+            "get": {
+                "tags": [
+                    "Billing"
+                ],
+                "summary": "Vnpay Billing Redirect",
+                "operationId": "vnpay_billing_redirect_api_billing_upgrade_vnpay_sandbox_get",
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "OAuth2PasswordBearerCookie": []
+                    }
+                ]
             }
         },
         "/api/slack/callback": {
@@ -977,7 +3522,7 @@
                 "operationId": "get_linked_bot_api_integration_ms_team_get_link_integration_get",
                 "security": [
                     {
-                        "BasicAuth": []
+                        "OAuth2PasswordBearerCookie": []
                     }
                 ],
                 "parameters": [
@@ -1096,7 +3641,7 @@
                 },
                 "security": [
                     {
-                        "BasicAuth": []
+                        "OAuth2PasswordBearerCookie": []
                     }
                 ]
             }
@@ -1200,7 +3745,7 @@
                 "operationId": "get_telegram_access_token_api_integration_telegram_token_get",
                 "security": [
                     {
-                        "BasicAuth": []
+                        "OAuth2PasswordBearerCookie": []
                     }
                 ],
                 "parameters": [
@@ -1243,7 +3788,7 @@
                     "Authentication"
                 ],
                 "summary": "Login For Access Token",
-                "description": "Login for access token.",
+                "description": "Login token.",
                 "operationId": "login_for_access_token_token_post",
                 "requestBody": {
                     "content": {
@@ -1265,6 +3810,167 @@
                                 }
                             }
                         }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/logout": {
+            "get": {
+                "tags": [
+                    "Authentication"
+                ],
+                "summary": "Route Logout And Remove Cookie",
+                "description": "Logout and remove cookie.",
+                "operationId": "route_logout_and_remove_cookie_logout_get",
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/docs/logout": {
+            "get": {
+                "tags": [
+                    "Authentication"
+                ],
+                "summary": "Route Logout And Remove Cookie",
+                "description": "Logout and remove cookie.",
+                "operationId": "route_logout_and_remove_cookie_docs_logout_get",
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/docs/login": {
+            "get": {
+                "tags": [
+                    "Authentication"
+                ],
+                "summary": "Login Basic",
+                "description": "Login and get token.",
+                "operationId": "login_basic_docs_login_get",
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "BasicAuth": []
+                    }
+                ]
+            }
+        },
+        "/docs": {
+            "get": {
+                "tags": [
+                    "Authentication"
+                ],
+                "summary": "Get Documentation",
+                "description": "Get documentation.",
+                "operationId": "get_documentation_docs_get",
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/user/me": {
+            "get": {
+                "tags": [
+                    "Authentication"
+                ],
+                "summary": "Read Users Me",
+                "description": "Get information of current user.",
+                "operationId": "read_users_me_user_me_get",
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UserSchema"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "OAuth2PasswordBearerCookie": []
+                    }
+                ]
+            }
+        },
+        "/": {
+            "get": {
+                "tags": [
+                    "UI"
+                ],
+                "summary": "Read Root",
+                "operationId": "read_root__get",
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "text/html": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/logger": {
+            "get": {
+                "summary": "Get Logger",
+                "operationId": "get_logger_logger_get",
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "text/html": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -1274,32 +3980,6 @@
         "schemas": {
             "BillingCreateSchema": {
                 "properties": {
-                    "id": {
-                        "anyOf": [
-                            {
-                                "type": "string",
-                                "format": "uuid"
-                            },
-                            {
-                                "type": "null"
-                            }
-                        ],
-                        "title": "Id",
-                        "omit_default": true
-                    },
-                    "user_id": {
-                        "anyOf": [
-                            {
-                                "type": "string",
-                                "format": "uuid"
-                            },
-                            {
-                                "type": "null"
-                            }
-                        ],
-                        "title": "User Id",
-                        "omit_default": true
-                    },
                     "is_active": {
                         "anyOf": [
                             {
@@ -1329,7 +4009,7 @@
                             }
                         ],
                         "title": "Expires At",
-                        "default": "2023-11-12T09:39:34.587789",
+                        "default": "2023-11-26T16:35:58.901598",
                         "omit_default": true
                     }
                 },
@@ -1381,23 +4061,20 @@
                                 "type": "null"
                             }
                         ],
-                        "title": "Grant Type",
-                        "description": "This field represents the type of grant being used. It can either be a string matching the pattern \"password\" or null."
+                        "title": "Grant Type"
                     },
                     "username": {
                         "type": "string",
-                        "title": "Username",
-                        "description": "This field represents a username. It is used to identify a user or entity within a system."
+                        "title": "Username"
                     },
                     "password": {
                         "type": "string",
-                        "title": "Password",
-                        "description": "This field represents a password. It is used as a secret authentication credential."
+                        "title": "Password"
                     },
                     "scope": {
                         "type": "string",
                         "title": "Scope",
-                        "description": "This field represents the scope. The scope is a term commonly used in authentication and authorization to define the level of access or permissions granted to a user or client."
+                        "default": ""
                     },
                     "client_id": {
                         "anyOf": [
@@ -1408,8 +4085,7 @@
                                 "type": "null"
                             }
                         ],
-                        "title": "Client Id",
-                        "description": "This field represents a client ID. It is used to identify a client application or entity within a system."
+                        "title": "Client Id"
                     },
                     "client_secret": {
                         "anyOf": [
@@ -1420,8 +4096,7 @@
                                 "type": "null"
                             }
                         ],
-                        "title": "Client Secret",
-                        "description": "This field represents a client secret. It is a confidential credential used for authentication and authorization purposes by a client application or entity. It can either be a string or null."
+                        "title": "Client Secret"
                     }
                 },
                 "type": "object",
@@ -1530,8 +4205,7 @@
                                 "type": "null"
                             }
                         ],
-                        "title": "Collect Customer Info",
-                        "omit_default": true
+                        "title": "Collect Customer Info"
                     },
                     "rules": {
                         "anyOf": [
@@ -1545,8 +4219,7 @@
                                 "type": "null"
                             }
                         ],
-                        "title": "Rules",
-                        "omit_default": true
+                        "title": "Rules"
                     },
                     "gpt_model_name": {
                         "anyOf": [
@@ -1606,6 +4279,18 @@
                             }
                         ],
                         "title": "Custom Error Message",
+                        "omit_default": true
+                    },
+                    "is_activate": {
+                        "anyOf": [
+                            {
+                                "type": "boolean"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Is Activate",
                         "omit_default": true
                     }
                 },
@@ -1778,32 +4463,6 @@
             },
             "BotManyQADocumentSchema": {
                 "properties": {
-                    "user_id": {
-                        "anyOf": [
-                            {
-                                "type": "string",
-                                "format": "uuid"
-                            },
-                            {
-                                "type": "null"
-                            }
-                        ],
-                        "title": "User Id",
-                        "omit_default": true
-                    },
-                    "bot_id": {
-                        "anyOf": [
-                            {
-                                "type": "string",
-                                "format": "uuid"
-                            },
-                            {
-                                "type": "null"
-                            }
-                        ],
-                        "title": "Bot Id",
-                        "omit_default": true
-                    },
                     "question_answers": {
                         "items": {
                             "$ref": "#/components/schemas/QuestionAnswerInputSchema"
@@ -1818,6 +4477,23 @@
                 ],
                 "title": "BotManyQADocumentSchema",
                 "description": "Bot question and answer document schema."
+            },
+            "BotManyTextDocumentSchema": {
+                "properties": {
+                    "text_documents": {
+                        "items": {
+                            "type": "string"
+                        },
+                        "type": "array",
+                        "title": "Text Documents"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "text_documents"
+                ],
+                "title": "BotManyTextDocumentSchema",
+                "description": "Bot many text document schema."
             },
             "BotQADocumentResponseSchema": {
                 "properties": {
@@ -1863,32 +4539,6 @@
             },
             "BotQADocumentSchema": {
                 "properties": {
-                    "user_id": {
-                        "anyOf": [
-                            {
-                                "type": "string",
-                                "format": "uuid"
-                            },
-                            {
-                                "type": "null"
-                            }
-                        ],
-                        "title": "User Id",
-                        "omit_default": true
-                    },
-                    "bot_id": {
-                        "anyOf": [
-                            {
-                                "type": "string",
-                                "format": "uuid"
-                            },
-                            {
-                                "type": "null"
-                            }
-                        ],
-                        "title": "Bot Id",
-                        "omit_default": true
-                    },
                     "question": {
                         "type": "string",
                         "title": "Question"
@@ -1963,8 +4613,7 @@
                                 "type": "null"
                             }
                         ],
-                        "title": "Collect Customer Info",
-                        "omit_default": true
+                        "title": "Collect Customer Info"
                     },
                     "rules": {
                         "anyOf": [
@@ -1978,8 +4627,7 @@
                                 "type": "null"
                             }
                         ],
-                        "title": "Rules",
-                        "omit_default": true
+                        "title": "Rules"
                     },
                     "gpt_model_name": {
                         "anyOf": [
@@ -2041,6 +4689,18 @@
                         "title": "Custom Error Message",
                         "omit_default": true
                     },
+                    "is_activate": {
+                        "anyOf": [
+                            {
+                                "type": "boolean"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Is Activate",
+                        "omit_default": true
+                    },
                     "id": {
                         "type": "string",
                         "format": "uuid",
@@ -2075,7 +4735,7 @@
                         "type": "string",
                         "format": "date-time",
                         "title": "Updated At",
-                        "default": "2023-10-29T09:39:35.139355"
+                        "default": "2023-11-12T16:36:00.724444"
                     }
                 },
                 "type": "object",
@@ -2183,6 +4843,43 @@
                 "title": "BotTemplateConfigSchema",
                 "description": "Bot template config schema."
             },
+            "BotTextDocumentResponseSchema": {
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "title": "Id"
+                    },
+                    "bot_id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "title": "Bot Id"
+                    },
+                    "content": {
+                        "type": "string",
+                        "title": "Content"
+                    },
+                    "num_token": {
+                        "type": "integer",
+                        "title": "Num Token"
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "title": "Created At"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "id",
+                    "bot_id",
+                    "content",
+                    "num_token",
+                    "created_at"
+                ],
+                "title": "BotTextDocumentResponseSchema",
+                "description": "Bot text document response schema."
+            },
             "BotUpdateSchema": {
                 "properties": {
                     "user_id": {
@@ -2240,8 +4937,7 @@
                                 "type": "null"
                             }
                         ],
-                        "title": "Collect Customer Info",
-                        "omit_default": true
+                        "title": "Collect Customer Info"
                     },
                     "rules": {
                         "anyOf": [
@@ -2255,8 +4951,7 @@
                                 "type": "null"
                             }
                         ],
-                        "title": "Rules",
-                        "omit_default": true
+                        "title": "Rules"
                     },
                     "gpt_model_name": {
                         "anyOf": [
@@ -2316,6 +5011,18 @@
                             }
                         ],
                         "title": "Custom Error Message",
+                        "omit_default": true
+                    },
+                    "is_activate": {
+                        "anyOf": [
+                            {
+                                "type": "boolean"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Is Activate",
                         "omit_default": true
                     },
                     "id": {
@@ -2473,6 +5180,19 @@
                         ],
                         "title": "Auto Show Initial Message After",
                         "omit_default": true
+                    },
+                    "is_circle_icon": {
+                        "anyOf": [
+                            {
+                                "type": "boolean"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Is Circle Icon",
+                        "default": true,
+                        "omit_default": true
                     }
                 },
                 "type": "object",
@@ -2556,47 +5276,16 @@
                     "bot_id": {
                         "type": "string",
                         "format": "uuid",
-                        "title": "Bot Id",
-                        "description": "This field represents the unique identifier of the chatbot."
+                        "title": "Bot Id"
                     },
                     "message": {
                         "type": "string",
-                        "title": "Message",
-                        "description": "This field represents the content of a message exchanged."
+                        "title": "Message"
                     },
                     "session_id": {
                         "type": "string",
                         "format": "uuid",
-                        "title": "Session Id",
-                        "description": "This field represents the unique identifier of the chat session."
-                    },
-                    "user_id": {
-                        "anyOf": [
-                            {
-                                "type": "string",
-                                "format": "uuid"
-                            },
-                            {
-                                "type": "null"
-                            }
-                        ],
-                        "title": "User Id",
-                        "omit_default": true,
-                        "description": "This field represents the unique identifier of the user."
-                    },
-                    "sender": {
-                        "anyOf": [
-                            {
-                                "type": "string",
-                                "format": "uuid"
-                            },
-                            {
-                                "type": "null"
-                            }
-                        ],
-                        "title": "Sender",
-                        "omit_default": true,
-                        "description": "This field represents the unique identifier of the sender."
+                        "title": "Session Id"
                     }
                 },
                 "type": "object",
@@ -2612,13 +5301,11 @@
                 "properties": {
                     "sender_type": {
                         "type": "string",
-                        "title": "Sender Type",
-                        "description": "This field represents the type of the sender.(User | Bot)"
+                        "title": "Sender Type"
                     },
                     "content": {
                         "type": "string",
-                        "title": "Content",
-                        "description": "This field represents the content of a message exchanged."
+                        "title": "Content"
                     }
                 },
                 "type": "object",
@@ -2763,6 +5450,18 @@
                 "title": "ConversationSchema",
                 "description": "Conversation Schema."
             },
+            "CurrencyEnum": {
+                "type": "string",
+                "enum": [
+                    "USD",
+                    "EUR",
+                    "GBP",
+                    "CNY",
+                    "JPY",
+                    "VND"
+                ],
+                "title": "CurrencyEnum"
+            },
             "HTTPValidationError": {
                 "properties": {
                     "errors": {
@@ -2775,6 +5474,20 @@
                 },
                 "type": "object",
                 "title": "HTTPValidationError"
+            },
+            "ImportTextDocumentSchema": {
+                "properties": {
+                    "content": {
+                        "type": "string",
+                        "title": "Content"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "content"
+                ],
+                "title": "ImportTextDocumentSchema",
+                "description": "Import text document schema."
             },
             "IntegrationMessagerCreateSchema": {
                 "properties": {
@@ -2814,19 +5527,6 @@
                         "format": "uuid",
                         "title": "Bot Id"
                     },
-                    "user_id": {
-                        "anyOf": [
-                            {
-                                "type": "string",
-                                "format": "uuid"
-                            },
-                            {
-                                "type": "null"
-                            }
-                        ],
-                        "title": "User Id",
-                        "omit_default": true
-                    },
                     "scrape_url": {
                         "type": "string",
                         "title": "Scrape Url"
@@ -2851,18 +5551,109 @@
                 ],
                 "title": "KnowledgeBaseCreateSchema"
             },
+            "KnowledgeBaseDeleteFileSchema": {
+                "properties": {
+                    "bot_id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "title": "Bot Id"
+                    },
+                    "knowledge_base_ids": {
+                        "items": {
+                            "type": "string",
+                            "format": "uuid"
+                        },
+                        "type": "array",
+                        "title": "Knowledge Base Ids"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "bot_id",
+                    "knowledge_base_ids"
+                ],
+                "title": "KnowledgeBaseDeleteFileSchema"
+            },
+            "KnowledgeBaseDeleteQASchema": {
+                "properties": {
+                    "bot_id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "title": "Bot Id"
+                    },
+                    "question_answer_ids": {
+                        "items": {
+                            "type": "string",
+                            "format": "uuid"
+                        },
+                        "type": "array",
+                        "title": "Question Answer Ids"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "bot_id",
+                    "question_answer_ids"
+                ],
+                "title": "KnowledgeBaseDeleteQASchema"
+            },
+            "KnowledgeBaseDeleteTextSchema": {
+                "properties": {
+                    "text_document_ids": {
+                        "items": {
+                            "type": "string",
+                            "format": "uuid"
+                        },
+                        "type": "array",
+                        "title": "Text Document Ids"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "text_document_ids"
+                ],
+                "title": "KnowledgeBaseDeleteTextSchema"
+            },
+            "KnowledgeBaseDeleteURLSchema": {
+                "properties": {
+                    "bot_id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "title": "Bot Id"
+                    },
+                    "base64_urls": {
+                        "items": {
+                            "type": "string"
+                        },
+                        "type": "array",
+                        "title": "Base64 Urls"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "bot_id",
+                    "base64_urls"
+                ],
+                "title": "KnowledgeBaseDeleteURLSchema"
+            },
+            "LanguageEnum": {
+                "type": "string",
+                "enum": [
+                    "en",
+                    "vi"
+                ],
+                "title": "LanguageEnum"
+            },
             "NumMessageLeftResponse": {
                 "properties": {
                     "bot_id": {
                         "type": "string",
                         "format": "uuid",
-                        "title": "Bot Id",
-                        "description": "Bot Id get number message left."
+                        "title": "Bot Id"
                     },
                     "num_message_left": {
                         "type": "integer",
-                        "title": "Num Message Left",
-                        "description": "The Num Message Left of the Bot."
+                        "title": "Num Message Left"
                     }
                 },
                 "type": "object",
@@ -2940,21 +5731,18 @@
                     "bot_id": {
                         "type": "string",
                         "format": "uuid",
-                        "title": "Bot Id",
-                        "description": "This is the ID of the bot you want to get the streaming response."
+                        "title": "Bot Id"
                     },
                     "message": {
                         "type": "string",
-                        "title": "Message",
-                        "description": "This is the message you want send to bot."
+                        "title": "Message"
                     },
                     "chat_history": {
                         "items": {
                             "$ref": "#/components/schemas/ChatHistorySchema"
                         },
                         "type": "array",
-                        "title": "Chat History",
-                        "description": "The chat history you want to get the streaming response."
+                        "title": "Chat History"
                     }
                 },
                 "type": "object",
@@ -2971,60 +5759,78 @@
                     "bot_id": {
                         "type": "string",
                         "format": "uuid",
-                        "title": "Bot Id",
-                        "description": "This is the ID of the bot you want to get the streaming response."
+                        "title": "Bot Id"
                     },
                     "message": {
                         "type": "string",
-                        "title": "Message",
-                        "description": "This is the message you want send to bot."
+                        "title": "Message"
                     },
                     "chat_history": {
                         "items": {
                             "$ref": "#/components/schemas/ChatHistorySchema"
                         },
                         "type": "array",
-                        "title": "Chat History",
-                        "default": [],
-                        "omit_default": true,
-                        "description": "The chat history you want to get the streaming response."
+                        "title": "Chat History"
                     },
                     "custom_prompt": {
-                        "type": "string",
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
                         "title": "Custom Prompt",
                         "default": "I want you to act as an assistant to a customer support agent by writing email responses. I will provide the customer inquiry or issue, and your task is to compose an appropriate, professional, and helpful response. You should not include additional instructions, questions, or explanations in your response. Only the main body of the email needs to be written.",
-                        "omit_default": true,
-                        "description": "The custom prompt you want to get the streaming response."
+                        "omit_default": true
                     },
                     "gpt_model_name": {
-                        "type": "string",
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
                         "title": "Gpt Model Name",
                         "default": "gpt-3.5-turbo-16k",
-                        "omit_default": true,
-                        "description": "The gpt model name you want to get the streaming response."
+                        "omit_default": true
                     },
                     "temperature": {
-                        "type": "number",
+                        "anyOf": [
+                            {
+                                "type": "number"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
                         "title": "Temperature",
                         "default": 0,
-                        "omit_default": true,
-                        "description": "The temperature you want to get the streaming response."
+                        "omit_default": true
                     },
                     "rules": {
-                        "items": {
-                            "type": "string"
-                        },
-                        "type": "array",
-                        "title": "Rules",
-                        "default": [],
-                        "omit_default": true,
-                        "description": "The rules you want to get the streaming response."
+                        "anyOf": [
+                            {
+                                "items": {
+                                    "type": "string"
+                                },
+                                "type": "array"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Rules"
                     }
                 },
                 "type": "object",
                 "required": [
                     "bot_id",
-                    "message"
+                    "message",
+                    "chat_history"
                 ],
                 "title": "StreamingWithCustomSettingsSchema",
                 "description": "Streaming With Chat History Schema."
@@ -3033,13 +5839,11 @@
                 "properties": {
                     "access_token": {
                         "type": "string",
-                        "title": "Access Token",
-                        "description": "A string token that is used for authentication and authorization purposes."
+                        "title": "Access Token"
                     },
                     "token_type": {
                         "type": "string",
-                        "title": "Token Type",
-                        "description": "The type or format of the access token."
+                        "title": "Token Type"
                     }
                 },
                 "type": "object",
@@ -3125,7 +5929,7 @@
                         "type": "string",
                         "format": "date-time",
                         "title": "Updated At",
-                        "default": "2023-10-29T09:39:34.352880"
+                        "default": "2023-11-12T16:35:58.269569"
                     }
                 },
                 "type": "object",
@@ -3172,7 +5976,7 @@
             }
         },
         "securitySchemes": {
-            "BasicAuth": {
+            "OAuth2PasswordBearerCookie": {
                 "type": "oauth2",
                 "flows": {
                     "password": {
