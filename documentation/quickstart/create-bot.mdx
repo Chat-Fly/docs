@@ -1,3 +1,327 @@
 ---
-title: Create Bot
+title: 'Create Bot'
+description: 'In this guide, we will walk through the process of manage a chatbot using an API'
+icon: 'message-bot'
 ---
+
+## Prerequisites
+
+Before you begin, make sure you have the following:
+
+1. ChatFly account to get access token.
+2. A development environment or tool for making HTTP requests, such as Curl or a programming language like Python.
+
+
+## Create Bot
+
+### API Endpoint
+
+The API endpoint for creating a chatbot is:
+
+```text
+https://backend.chatfly.co/api/bot
+```
+
+### Request Body
+
+To create a chatbot, you need to send a POST request to the API endpoint with a JSON request body. Here’s an example request body:
+
+```json
+{
+  "user_id": "User_id of Your Account",
+  "bot_name": "Your Chatbot's Name",
+  "case_study": "Your Case Study",
+  "is_visibility": true,
+  "domain": [
+    "Your domain"
+  ],
+  "collect_customer_info": {},
+  "rules": [
+    "Your rules"
+  ],
+  "gpt_model_name": "gpt-3.5-turbo",
+  "temperature": 0,
+  "custom_prompt": "A sample prompt for your chatbot.",
+  "bot_tone_type": 0,
+  "custom_error_message": "Your custom error message"
+}
+```
+
+- bot_name (string): Your Chatbot's Name
+
+- case_study (string, optional): Your Case Study.
+
+    Options available: `Customer Support`, `Knowledge Management`, `Teaching Education`, `Lecture Assistant`, `Toeic Learner Assistant`.
+
+- is_visibility (string, optional): Set the visibility of your chatbot.
+
+    Options available: `private`, `public`.
+
+- domain (list(string)): website domain where you want to embed the bot.
+
+- collect_customer_info (list(string)): The information you want to collect from users.
+
+- rules (list(string)): The rule you want the bot to express when responding to messages.
+
+- gpt_model_name (string, optional): Specify the model you want to use. In this example, we’re using `gpt-3.5-turbo`.
+
+    Options available `gpt-3.5-turbo`, `gpt-3.5-turbo-16k`, `gpt-4`
+
+- temperature (float, optional): You can adjust the temperature parameter for response randomness. A value of `0` makes responses deterministic, while higher values increase randomness.
+
+    Options are values as a float between `0` and `1`
+
+- custom_prompt (string, optional): You can provide an initial prompt for your chatbot.
+
+- bot_tone_type (int): Bot tone type.
+
+- custom_error_message (string): Your custom error message.
+
+### Example Request
+
+Here’re example command sto create a chatbot using the ChatFly API:
+
+<Warning>
+
+Replace `token` with your token access.
+
+</Warning>
+
+<CodeGroup>
+
+```json curl
+curl -X POST "https://backend.chatfly.co/api/bot" \
+-H "Content-Type: application/json" \
+-H "Authorization: Bearer token" \
+-d '{
+  "user_id": "xxxx-xxxx-xxxx-xxxx",
+  "bot_name": "ChatbotName",
+  "case_study": "CaseStudy",
+  "is_visibility": true,
+  "domain": [
+    "Your domain"
+  ],
+  "collect_customer_info": {},
+  "rules": [
+    "Your rules"
+  ],
+  "gpt_model_name": "gpt-3.5-turbo",
+  "temperature": 0,
+  "custom_prompt": "A sample prompt for your chatbot.",
+  "bot_tone_type": 0,
+  "custom_error_message": "Your custom error message"
+}'
+```
+
+```json python
+import requests
+
+url = 'https://backend.chatfly.co/api/bot'
+headers = {
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer token'
+}
+
+data = {
+  "user_id": "xxxx-xxxx-xxxx-xxxx",
+  "bot_name": "ChatbotName",
+  "case_study": "CaseStudy",
+  "is_visibility": true,
+  "domain": [
+    "Your domain"
+  ],
+  "collect_customer_info": {},
+  "rules": [
+    "Your rules"
+  ],
+  "gpt_model_name": "gpt-3.5-turbo",
+  "temperature": 0,
+  "custom_prompt": "A sample prompt for your chatbot.",
+  "bot_tone_type": 0,
+  "custom_error_message": "Your custom error message"
+}
+
+response = requests.post(url, headers=headers, json=data)
+
+if response.status_code == 200:
+    print("Request successful!")
+    print(response.json())
+else:
+    print("Request failed with status code:", response.status_code)
+    print(response.text)
+```
+
+```json javascript
+const url = 'https://backend.chatfly.co/api/bot';
+const headers = {
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer your_actual_token_here'
+};
+
+const data = {
+    "user_id": "xxxx-xxxx-xxxx-xxxx",
+    "bot_name": "ChatbotName",
+    "case_study": "CaseStudy",
+    "is_visibility": true,
+    "domain": [
+        "Your domain"
+    ],
+    "collect_customer_info": {},
+    "rules": [
+        "Your rules"
+    ],
+    "gpt_model_name": "gpt-3.5-turbo",
+    "temperature": 0,
+    "custom_prompt": "A sample prompt for your chatbot.",
+    "bot_tone_type": 0,
+    "custom_error_message": "Your custom error message"
+};
+
+fetch(url, {
+    method: 'POST',
+    headers: headers,
+    body: JSON.stringify(data)
+})
+    .then(response => {
+        if (response.status === 200) {
+            return response.json();
+        } else {
+            throw new Error(`Request failed with status code: ${response.status}`);
+        }
+    })
+    .then(data => {
+        console.log("Request successful!");
+        console.log(data);
+    })
+    .catch(error => {
+        console.error(error);
+    });
+```
+
+</CodeGroup>
+
+
+## Bot Information
+
+### API Endpoint
+
+The API endpoint for get bot information is:
+
+```text
+https://backend.chatfly.co/api/bot/information
+```
+
+### Request Body
+
+To get bot information, you need to send a Get request to the API endpoint with a Params request. Here’s an example params request:
+
+```json
+{
+  "bot_id": "xxxx-xxxx-xxxx-xxxx"
+}
+```
+
+- bot_id (string): id of your bot.
+
+### Example Request
+
+Here’re example command sto get bot information using the ChatFly API:
+
+<Warning>
+
+Replace `token` with your token access.
+
+</Warning>
+
+<CodeGroup>
+
+```json curl
+curl -X GET "https://backend.chatfly.co/api/bot/information?bot_id=xxxx-xxxx-xxxx-xxxx"
+-H "Authorization: Bearer token"
+-H "Content-Type: application/json"
+
+```
+
+```json python
+import requests
+
+url = 'https://backend.chatfly.co/api/bot/information'
+headers = {
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer token'
+}
+
+data = {
+   "bot_id": "xxxx-xxxx-xxxx-xxxx"
+}
+
+response = requests.get(url, headers=headers, params=data)
+
+if response.status_code == 200:
+    print("Request successful!")
+    print(response.json())
+else:
+    print("Request failed with status code:", response.status_code)
+    print(response.text)
+```
+
+```json javascript
+const axios = require('axios');
+
+const url = 'https://backend.chatfly.co/api/bot/information';
+const headers = {
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer token'
+};
+
+const params = {
+    bot_id: 'xxxx-xxxx-xxxx-xxxx'
+};
+
+axios.get(url, { headers, params })
+    .then(response => {
+        if (response.status === 200) {
+            console.log('Request successful!');
+            console.log(response.data);
+        } else {
+            console.log('Request failed with status code:', response.status);
+            console.log(response.data);
+        }
+    })
+    .catch(error => {
+        console.error('An error occurred:', error);
+    });
+
+```
+
+</CodeGroup>
+
+### Response Body
+
+The bot's information is responded:
+
+```json
+{
+  "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+  "bot_name": "Your Chatbot's Name",
+  "case_study": "Your Case Study",
+  "is_visibility": true,
+  "domain": [
+    "Your domain"
+  ],
+  "collect_customer_info": {},
+  "rules": [
+    "Your rules"
+  ],
+  "gpt_model_name": "gpt-3.5-turbo",
+  "temperature": 0,
+  "custom_prompt": "A sample prompt for your chatbot.",
+  "bot_tone_type": 0,
+  "custom_error_message": "Your custom error message",
+  "num_message_left": 0,
+  "created_at": "YYYY-MM-DD",
+  "updated_at": "YYYY-MM-DD"
+}
+```
+
+Information about response params in ` Request Body (Create bot) `.

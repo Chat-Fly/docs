@@ -24,7 +24,8 @@ https://backend.chatfly.co/api/bot
 ### Request Body
 
 To create a chatbot, you need to send a POST request to the API endpoint with a JSON request body. Here’s an example request body:
-```
+
+```json
 {
   "user_id": "User_id of Your Account",
   "bot_name": "Your Chatbot's Name",
@@ -44,15 +45,16 @@ To create a chatbot, you need to send a POST request to the API endpoint with a 
   "custom_error_message": "Your custom error message"
 }
 ```
+
 - bot_name (string): Your Chatbot's Name
 
-- case_study (string, optional): Your Case Study
+- case_study (string, optional): Your Case Study.
 
-    Options available `Customer Support`, `Knowledge Management`, `Teaching Education`, `Lecture Assistant`, `Toeic Learner Assistant`.
+    Options available: `Customer Support`, `Knowledge Management`, `Teaching Education`, `Lecture Assistant`, `Toeic Learner Assistant`.
 
 - is_visibility (string, optional): Set the visibility of your chatbot.
 
-    Options available `private`, `public`
+    Options available: `private`, `public`.
 
 - domain (list(string)): website domain where you want to embed the bot.
 
@@ -203,18 +205,21 @@ fetch(url, {
 ### API Endpoint
 
 The API endpoint for get bot information is:
-```
+
+```text
 https://backend.chatfly.co/api/bot/information
 ```
 
 ### Request Body
 
 To get bot information, you need to send a Get request to the API endpoint with a Params request. Here’s an example params request:
-```
+
+```json
 {
-  "bot_id": "xxxx-xxxx-xxxx-xxxx",
+  "bot_id": "xxxx-xxxx-xxxx-xxxx"
 }
 ```
+
 - bot_id (string): id of your bot.
 
 ### Example Request
@@ -294,7 +299,7 @@ axios.get(url, { headers, params })
 
 The bot's information is responded:
 
-```
+```json
 {
   "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
   "bot_name": "Your Chatbot's Name",
@@ -317,4 +322,5 @@ The bot's information is responded:
   "updated_at": "YYYY-MM-DD"
 }
 ```
+
 Information about response params in ` Request Body (Create bot) `.

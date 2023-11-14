@@ -1,49 +1,49 @@
 ---
-title: 'Bot Knowledge Base'
-description: 'In this guide, we will walk through the process of uploading data sources to your chatbot using the ChatFly API.'
-icon: 'circle-info'
+title: 'Upload Data Sources'
+description: 'Learn how to upload data sources to your chatbot using the ChatFly API.'
+icon: 'upload'
 ---
 
 ## Prerequisites
 
-Before you begin, make sure you have the following:
+Before you begin, ensure you have the following:
 
-1. ChatFly account to get access token.
-2. A development environment or tool for making HTTP requests, such as Curl or a programming language like Python.
+1. A ChatFly account to obtain an access token.
+2. A development environment or a tool for making HTTP requests, such as Curl or a programming language like Python.
 
 ## Uploading Data Sources
 
-Currently here Uploading Data Source for url.
-
 ### API Endpoint
 
-The API endpoint for uploading data sources to your chatbot is: `https://backend.chatfly.co/api/scraping/url`.
+The API endpoint for uploading data sources to your chatbot is:
+
+```text
+https://backend.chatfly.co/api/scraping/url
+```
 
 ### Request Body
 
-To upload a data source, you need to send a POST request to the API endpoint with a JSON request body containing the URL of the data source. Here’s an example request body:
+To upload a data source, send a POST request to the API endpoint with a JSON request body containing the URL of the data source. Here’s an example request body:
 
-```
+```json
 {
   "bot_id": "xxxx-xxxx-xxxx-xxxx",
-  "scrape_url": "Your url",
+  "scrape_url": "Your URL",
   "scrape_type": 2
 }
 ```
+
 - bot_id (string): ID of your bot.
-
-- scrape_url (string): Link the website url where you want to scrape information.
-
+- scrape_url (string): Link to the website URL where you want to scrape information.
 - scrape_type (int): The method by which you import the data source.
+
 
 ### Example Request
 
-Here’re example command sto uploading data sources using the ChatFly API:
+Here are example commands for uploading data sources using the ChatFly API:
 
 <Warning>
-
-Replace `token` with your token access.
-
+    Replace token with your access token.
 </Warning>
 
 <CodeGroup>
@@ -57,8 +57,6 @@ curl -X POST "https://backend.chatfly.co/api/scraping/url" \
   "scrape_url": "https://xxxx",
   "scrape_type": 2
 }'
-
-
 ```
 
 ```json python
@@ -119,41 +117,41 @@ axios.post(url, data, { headers })
 
 </CodeGroup>
 
-
 ## Get Data Sources
 
-Currently here get list url.
+#### API Endpoint
 
-### API Endpoint
+The API endpoint for getting a list of URLs for your chatbot is:
 
-The API endpoint for get list url to your chatbot is: `https://backend.chatfly.co/api/scraping/url/{bot_id}`.
+```text
+https://backend.chatfly.co/api/scraping/url/{bot_id}.
+```
 
 <Warning>
-
-Make sure to replace `{bot_id}` with the UUID of your bot..
-
+    Make sure to replace {bot_id} with the UUID of your bot.
 </Warning>
 
-### Request Body
+#### Request Body
 
-To get list url, you need to send a Get request to the API endpoint with a params request. Here’s an example params request:
+To get a list of URLs, send a GET request to the API endpoint with a params request. Here’s an example params request:
 
-```
+```json
 {
-  "bot_id": "xxxx-xxxx-xxxx-xxxx",
+  "bot_id": "xxxx-xxxx-xxxx-xxxx"
 }
 ```
+
 - bot_id (string): ID of your bot.
 
-### Example Request
 
-Here’re example command sto get list url using the ChatFly API:
+#### Example Request
+
+Here are example commands for getting a list of URLs using the ChatFly API:
 
 <Warning>
-
-Replace `token` with your token access.
-
+    Replace token with your access token.
 </Warning>
+
 
 <CodeGroup>
 
@@ -210,22 +208,22 @@ axios.get(url, { headers })
 
 </CodeGroup>
 
-### Response Body
 
-The list url are responded:
+#### Response Body
 
-```
+The list of URLs is responded:
+
+```json
 [
   {
     "knowledge_base_id": "xxxx-xxxx-xxxx-xxxx",
-    "url": "Your url",
+    "url": "Your URL",
     "num_token": 0
   },
   ...
 ]
 ```
-- knowledge_base_id (string): ID of knowledge base.
 
-- url (string): your website url.
-
-- num_token (int): number of words.
+- knowledge_base_id (string): ID of the knowledge base.
+- url (string): Your website URL.
+- num_token (int): Number of words.

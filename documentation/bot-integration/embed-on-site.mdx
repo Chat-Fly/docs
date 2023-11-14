@@ -1,33 +1,51 @@
 ---
 title: "Embed ChatFly on Your Site"
-description: "In this guide, we will walk through the process **Embed ChatFly Bot on Your Site**"
+description: "Explore the steps to effortlessly **Embed ChatFly Bot on Your Website** in this comprehensive guide."
 icon: "browser"
 ---
 
-To add the chatbot anywhere on your website, add this iframe to your html code, this iframe like
+## Iframe Integration
 
-``` json
-    <iframe
-      src="https://app.chatfly.co/chat/xxxx-xxxx-xxxx-xxxx-xxxx"
-      width="100%"
-      height="300"
-      style="border:1px solid black;"
-    ></iframe>
+To seamlessly integrate the ChatFly chatbot into any section of your website, follow these steps:
+
+1. Insert the following iframe code into your HTML:
+
+```html
+<iframe
+  src="https://app.chatfly.co/chat/xxxx-xxxx-xxxx-xxxx-xxxx"
+  width="100%"
+  height="300"
+  style="border: 1px solid black;"
+></iframe>
 ```
 
-To add a chat bubble to the bottom right of your website add this script tag to your html
+2. Customize the `src` attribute by replacing `xxxx-xxxx-xxxx-xxxx-xxxx` with your specific bot ID.
 
-``` json
-    <script>
-      window.chatbotConfig = {
-        bot_id: "xxxx-xxxx-xxxx-xxxx-xxxx",
-      };
-    </script>
-    <script src="https://app.chatfly.co/Chat.js"></script>
+## Chat Bubble Implementation
+
+Enhance user engagement by adding a chat bubble to the bottom right of your website. Here's how:
+
+1. Add the following script tags to your HTML:
+
+```html
+<script>
+  window.chatbotConfig = {
+    bot_id: "xxxx-xxxx-xxxx-xxxx-xxxx",
+  };
+</script>
+<script src="https://app.chatfly.co/Chat.js"></script>
 ```
+
+2. Ensure to replace xxxx-xxxx-xxxx-xxxx-xxxx with your actual bot ID.
 
 <Warning>
-
-Replace `xxxx-xxxx-xxxx-xxxx-xxxx` with your bot-id.
-
+    Remember to replace the placeholder xxxx-xxxx-xxxx-xxxx-xxxx in both the iframe and script tags with the unique bot
+    ID associated with your ChatFly Bot.
 </Warning>
+
+## Additional Tips
+
+- Experiment with different iframe dimensions to suit your website's layout.
+- Customize the chat bubble's appearance and behavior by adjusting parameters in the window.chatbotConfig object.
+
+Now, seamlessly enhance your website's interactivity with ChatFly!
