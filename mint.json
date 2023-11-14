@@ -103,9 +103,9 @@
                 {
                     "group": "Import data",
                     "pages": [
+                        "api-reference/documents/bot-scraping/import-url",
                         "api-reference/documents/bot-scraping/import-file",
-                        "api-reference/documents/bot-scraping/import-qa",
-                        "api-reference/documents/bot-scraping/import-url"
+                        "api-reference/documents/bot-scraping/import-qa"
                     ]
                 }
             ]

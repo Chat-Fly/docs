@@ -1,10 +1,10 @@
 ---
 title: "Import URL"
-description: "In this guide, we will walk through the process of importing website."
-icon: "message-captions"
+description: "Explore the seamless process of importing websites with the ChatFly API."
+icon: "browsers"
 ---
 
-### API Endpoint
+## API Endpoint
 
 The API endpoint for obtaining a streaming response is:
 
@@ -12,41 +12,40 @@ The API endpoint for obtaining a streaming response is:
 https://backend.chatfly.co/api/scraping/url
 ```
 
-### Request Body
+## Request Body
 
-To import a website, you need to send a POST request to the API endpoint with a JSON request. Here's an example JSON request:
+To import a website, send a POST request to the API endpoint with a JSON request. Here's an example JSON request:
 
 ```json
-{
-  "bot_id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-  "user_id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-  "scrape_url": "string",
-  "scrape_type": 1
-}
+  {
+    "bot_id": "your_bot_id",
+    "user_id": "your_user_id",
+    "scrape_url": "string",
+    "scrape_type": 1
+  }
 ```
 
 - bot_id (string): ID of your bot.
 - user_id (string): ID of your account.
 - scrape_url (string): Website to import.
-- scrape_type (int): Type of scraping (If scrape_type is 1, it will scrape current page having depth = 0 and all child website recursively until depth = 2)
+- scrape_type (int): Type of scraping (If scrape_type is 1, it will scrape the current page with depth = 0 and all child websites recursively until depth = 2)
 
-### Example Request
+## Example Request
 
-<a href="/api-reference/endpoint/scraping/scrape-url">Here</a> are example commands
-to import file using the ChatFly API
+Explore [here](/api-reference/endpoint/scraping/scrape-url) for example commands to import a website using the ChatFly API.
 
-### Response Body
+## Response Body
 
 The streaming response is as follows:
 
-```
-{
-  "url": "string",
-  "progress": "float",
-  "num_token": "int",
-}
+```json
+  {
+    "url": "string",
+    "progress": "float",
+    "num_token": "int"
+  }
 ```
 
 - url (string): Current page.
 - progress (float): Current progress (from 0 to 1)
-- num_token (int): Number token of current page
+- num_token (int): Number token of the current page

@@ -1,99 +1,93 @@
 ---
-title: "Import Q-A"
-description: "In this guide, we will walk through the process of importing question-answer pairs."
-icon: "message-captions"
+title: "Import Question-Answer Pairs"
+description: "Learn how to effortlessly import question-answer pairs with the ChatFly API."
+icon: "comments-question-check"
 ---
 
-### API Endpoint
+## API Endpoint
 
 The API endpoint for obtaining a streaming response is:
 
 <CodeGroup>
-```text One
-https://backend.chatfly.co/api/scraping/question-answer/{bot_id}
-```
-
-```text Many
-https://backend.chatfly.co/api/scraping/question-answer/{bot_id}/many
-```
-
+    ```text One
+    https://backend.chatfly.co/api/scraping/question-answer/{bot_id}
+    ```
+    ```text Many
+    https://backend.chatfly.co/api/scraping/question-answer/{bot_id}/many
+    ```
 </CodeGroup>
 
-### Request Body
+## Request Body
 
-To import a website, you need to send a POST request to the API endpoint with a JSON request. Here's an example JSON request:
+To import question-answer pairs, send a POST request to the API endpoint with a JSON request. Here's an example JSON request:
 
 <CodeGroup>
-```json One
-{
-  "user_id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-  "bot_id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-  "question": "string",
-  "answer": "string"
-}
-```
-```json Many
-{
-  "user_id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-  "bot_id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-  "question_answers": [
+    ```json Single Import
     {
-      "question": "string",
-      "answer": "string"
+        "bot_id": "your_bot_id",
+        "question": "string",
+        "answer": "string"
     }
-  ]
-}
-```
+    ```
+    ```json Bulk Import
+    {
+      "bot_id": "your_bot_id",
+      "question_answers": [
+        {
+          "question": "string",
+          "answer": "string"
+        },
+        {
+          "question": "string",
+          "answer": "string"
+        }
+        // Add more Q-A pairs as needed
+      ]
+    }
+    ```
 </CodeGroup>
 
 - bot_id (string): ID of your bot.
-- user_id (string): ID of your account.
 - question (string): Question.
 - answer (string): Answer.
 
-### Example Request
+## Example Request
 
-<a href="/api-reference/endpoint/scraping/add-one-question-answer">Here</a> are example
-commands to import one Q-A and <a href="/api-reference/endpoint/scraping/add-many-question-answer">
-  here
-</a> for many Q-A using the ChatFly API
+Explore [here](/api-reference/endpoint/scraping/add-one-question-answer) for example commands to import a single Q-A pair and [here](/api-reference/endpoint/scraping/add-many-question-answer) for bulk import using the ChatFly API.
 
-### Response Body
+## Response Body
 
 The streaming response is as follows:
 
 <CodeGroup>
-```json One
-{
-  "id": "string",
-  "bot_id": "string",
-  "question": "string",
-  "answer": "string",
-  "num_token": "int",
-  "created_at": "datetime"
-}
-```
-
-```json Many
-[
-  {
-    "id": "string",
-    "bot_id": "string",
-    "question": "string",
-    "answer": "string",
-    "num_token": "int",
-    "created_at": "datetime"
-  },
-  {
-    ...
-  }
-]
-```
+    ```json Single Import
+    {
+        "id": "string",
+        "bot_id": "string",
+        "question": "string",
+        "answer": "string",
+        "num_token": "int",
+        "created_at": "datetime"
+    }
+    ```
+    ```json Bulk Import
+    [
+        {
+            "id": "string",
+            "bot_id": "string",
+            "question": "string",
+            "answer": "string",
+            "num_token": "int",
+            "created_at": "datetime"
+        }
+        // Additional Q-A pairs
+    ]
+    ```
 
 </CodeGroup>
 
-- id (string): ID of each question answer pair.
-- bot_id (float): ID of your bot.
+- id (string): ID of each question-answer pair.
+- bot_id (string): ID of your bot.
 - question (string): Question
 - answer (string): Answer
 - num_token (int): Number of tokens consumed
