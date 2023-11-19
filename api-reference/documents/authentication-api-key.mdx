@@ -1,0 +1,21 @@
+---
+title: "Authentication by API key"
+description: "Verify the identity of users accessing the ChatFly system"
+---
+Authentication is the process of verifying and confirming the identity of a user or entity to ensure that only authorized individuals or entities can access a system or protected resources.
+
+For ChatFly's authentication, API key-based authentication is also employed. Instead of using the Bearer token, users are required to include an API key in the request header. The key must be named "CHATFLY-API-KEY" and hold the user's unique API key.
+
+## How does this work?
+
+### Authentication
+
+After [create API Key](/documentation/quickstart/create-api-key) here. Users must include the API key in the request header for subsequent requests to the ChatFly system.
+
+The API key should be added to the Authorization header with the following format:
+```bash
+'CHATFLY-API-KEY': '<api_key>'
+```
+
+This key serves as proof of the user's identity and is used by the server to verify and authorize access based on the permissions associated with the API key.
+
