@@ -83,6 +83,7 @@
             "group": "API Documentation",
             "pages": [
                 "api-reference/documents/authentication",
+                "api-reference/documents/authentication-api-key",
                 {
                     "group": "Bot",
                     "pages": [
