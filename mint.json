@@ -49,9 +49,14 @@
             "url": "https://chatflycustom-mpb3120.slack.com/ssb/redirect"
         },
         {
+            "name": "Facebook",
+            "icon": "facebook",
+            "url": "https://www.facebook.com/chatflycrm"
+        },
+        {
             "name": "Blog",
             "icon": "newspaper",
-            "url": "https://www.facebook.com/chatflycrm"
+            "url": "https://blog.chatfly.co"
         }
     ],
     "navigation": [
