@@ -34,7 +34,7 @@ Here are example commands to obtain a streaming response using the ChatFly API:
 <CodeGroup>
 
 ```json curl
-curl -N -X POST "https://backend.chatfly.co/api/chat/get-streaming-response" \
+curl -N -X POST "https://backend.chatfly.co/api/chat/get-streaming-response-with-chat-history" \
 -H 'accept: application/json' \
 -H 'Content-Type: application/json' \
 -d '{
@@ -50,7 +50,7 @@ curl -N -X POST "https://backend.chatfly.co/api/chat/get-streaming-response" \
 ```json python
 import requests
 
-url = "https://backend.dev.chatfly.co/api/chat/get-streaming-response"
+url = "https://backend.chatfly.co/api/chat/get-streaming-response-with-chat-history"
 headers = {
     'Content-Type': 'application/json',
 }
