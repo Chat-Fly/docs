@@ -140,7 +140,6 @@
                 {
                     "group": "Chat",
                     "pages": [
-                        "api-reference/chat/get-normal-response",
                         "api-reference/chat/get-streaming-response",
                         "api-reference/chat/get-streaming-response-with-chat-history",
                         "api-reference/chat/get-streaming-response-with-custom-settings",
@@ -149,34 +148,23 @@
                     ]
                 },
                 {
-                    "group": "Slack",
-                    "pages": [
-                        "api-reference/slack/auth-callback",
-                        "api-reference/slack/get-customer-info",
-                        "api-reference/slack/get-slack-bot-channel",
-                        "api-reference/slack/add-bot-to-channel"
-                    ]
-                },
-                {
                     "group": "Import data",
                     "pages": [
-                        "api-reference/endpoint/scraping/scrape-url",
-                        "api-reference/endpoint/scraping/upload-file",
-                        "api-reference/endpoint/scraping/add-one-question-answer",
-                        "api-reference/endpoint/scraping/add-many-question-answer"
-                    ]
-                },
-                {
-                    "group": "Integration",
-                    "pages": [
-                        "api-reference/integration/create-link-conversation",
-                        "api-reference/integration/get-linked-bot",
-                        "api-reference/integration/get-linked-bot-1",
-                        "api-reference/integration/get-linked-bot-2",
-                        "api-reference/integration/add-bot-to-messager-page",
-                        "api-reference/integration/get-bot-id-in-channel",
-                        "api-reference/integration/add-bot-to-channel-id",
-                        "api-reference/integration/get-telegram-access-token"
+                        "api-reference/endpoint/scraping/file/add",
+                        "api-reference/endpoint/scraping/file/get-all",
+                        "api-reference/endpoint/scraping/qa/add-many",
+                        "api-reference/endpoint/scraping/qa/add-one",
+                        "api-reference/endpoint/scraping/qa/delete-many",
+                        "api-reference/endpoint/scraping/qa/get-all",
+                        "api-reference/endpoint/scraping/text/add-many",
+                        "api-reference/endpoint/scraping/text/add-one",
+                        "api-reference/endpoint/scraping/text/delete-many",
+                        "api-reference/endpoint/scraping/text/get-all",
+                        "api-reference/endpoint/scraping/url/add",
+                        "api-reference/endpoint/scraping/url/delete",
+                        "api-reference/endpoint/scraping/url/get-all",
+                        "api-reference/endpoint/scraping/get-all",
+                        "api-reference/endpoint/scraping/get-status-all"
                     ]
                 }
             ]
